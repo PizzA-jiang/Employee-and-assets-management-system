@@ -34,14 +34,14 @@
 <body>
     <div class="container">
         <h1>📊 API 测试报告</h1>
-        <p>生成时间: 2026-08-25 13:42:54</p>
+        <p>生成时间: 2026-08-26 10:09:18</p>
         <p>测试地址: http://localhost:8000/api</p>
 
         <div class="summary">
-            <div class="card total"><h3>总用例数</h3><div class="value">42</div></div>
-            <div class="card passed"><h3>通过</h3><div class="value">42</div></div>
-            <div class="card failed"><h3>失败</h3><div class="value">0</div></div>
-            <div class="card rate"><h3>通过率</h3><div class="value">100.0%</div></div>
+            <div class="card total"><h3>总用例数</h3><div class="value">33</div></div>
+            <div class="card passed"><h3>通过</h3><div class="value">31</div></div>
+            <div class="card failed"><h3>失败</h3><div class="value">2</div></div>
+            <div class="card rate"><h3>通过率</h3><div class="value">93.9%</div></div>
         </div>
 
         <table>
@@ -68,8 +68,8 @@
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"code": 200, "message": "登录成功", "data": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0YWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODc3MjI5NzJ9.d9iTWprAs5EHDPhDMpv9Pm_h2IgigcJFloH</td>
-                    <td class="timestamp">13:42:52.520</td>
+                    <td class="details">{"code": 200, "message": "登录成功", "data": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0YWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODc3OTY1NTZ9.y92shIKVZ6nCv75ZtcqZ77VYvbJia9hjcPR</td>
+                    <td class="timestamp">10:09:16.383</td>
                 </tr>
 
                 <tr>
@@ -81,7 +81,7 @@
                     <td>401</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 401, "message": "用户名或密码错误", "data": null}</td>
-                    <td class="timestamp">13:42:52.848</td>
+                    <td class="timestamp">10:09:16.957</td>
                 </tr>
 
                 <tr>
@@ -92,8 +92,8 @@
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"code": 200, "message": "成功", "data": {"username": "testadmin", "email": "updated@company.com", "role": "admin", "id": 1, "is_active": 1, "created_at": null, "updated_at": "2026-08-25T04:13:40", "emp</td>
-                    <td class="timestamp">13:42:52.854</td>
+                    <td class="details">{"code": 200, "message": "成功", "data": {"username": "testadmin", "email": "updated@company.com", "role": "admin", "id": 116, "is_active": 1, "created_at": null, "updated_at": "2026-08-25T09:15:21", "e</td>
+                    <td class="timestamp">10:09:16.964</td>
                 </tr>
 
                 <tr>
@@ -104,20 +104,20 @@
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"code": 200, "message": "成功", "data": [{"username": "testadmin", "email": "updated@company.com", "role": "admin", "id": 1, "is_active": 1, "created_at": null, "updated_at": "2026-08-25T04:13:40"}, {"</td>
-                    <td class="timestamp">13:42:52.866</td>
+                    <td class="details">{"code": 200, "message": "成功", "data": [{"username": "testuser_91442", "email": "testuser_91442@test.com", "role": "employee", "id": 3, "is_active": 1, "created_at": "2026-08-25T07:06:32", "updated_at</td>
+                    <td class="timestamp">10:09:16.973</td>
                 </tr>
 
                 <tr>
                     <td>5</td>
                     <td>更新用户</td>
                     <td><span class="method PUT">PUT</span></td>
-                    <td><code>http://localhost:8000/api/auth/users/1</code></td>
+                    <td><code>http://localhost:8000/api/auth/users/116</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"code": 200, "message": "更新成功", "data": {"username": "testadmin", "email": "updated@company.com", "role": "admin", "id": 1, "is_active": 1, "created_at": null, "updated_at": "2026-08-25T04:13:40"}}</td>
-                    <td class="timestamp">13:42:52.873</td>
+                    <td class="details">{"code": 200, "message": "更新成功", "data": {"username": "testadmin", "email": "updated@company.com", "role": "admin", "id": 116, "is_active": 1, "created_at": null, "updated_at": "2026-08-25T09:15:21"}}</td>
+                    <td class="timestamp">10:09:16.982</td>
                 </tr>
 
                 <tr>
@@ -125,11 +125,11 @@
                     <td>创建员工</td>
                     <td><span class="method POST">POST</span></td>
                     <td><code>http://localhost:8000/api/employees</code></td>
+                    <td>400</td>
                     <td>201</td>
-                    <td>201</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00", "id": 7, "user_id": 1, "status": 1, "created_at": "2026-</td>
-                    <td class="timestamp">13:42:53.399</td>
+                    <td class="fail">失败</td>
+                    <td class="details">{"code": 400, "message": "该用户已关联员工信息", "data": null}</td>
+                    <td class="timestamp">10:09:17.474</td>
                 </tr>
 
                 <tr>
@@ -140,8 +140,8 @@
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 2, "page": 1, "size": 10, "pages": 1, "items": [{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00"</td>
-                    <td class="timestamp">13:42:53.411</td>
+                    <td class="details">{"total": 11, "page": 1, "size": 10, "pages": 2, "items": [{"employee_no": "EMP_UPD_08670", "name": "另一个员工", "department": "测试部", "position": "测试工程师", "phone": null, "hire_date": null, "id": 128, "use</td>
+                    <td class="timestamp">10:09:17.486</td>
                 </tr>
 
                 <tr>
@@ -152,8 +152,8 @@
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 2, "page": 1, "size": 10, "pages": 1, "items": [{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00"</td>
-                    <td class="timestamp">13:42:53.423</td>
+                    <td class="details">{"total": 4, "page": 1, "size": 10, "pages": 1, "items": [{"employee_no": "EMP_UPD_08670", "name": "另一个员工", "department": "测试部", "position": "测试工程师", "phone": null, "hire_date": null, "id": 128, "user</td>
+                    <td class="timestamp">10:09:17.498</td>
                 </tr>
 
                 <tr>
@@ -161,51 +161,27 @@
                     <td>获取我的员工信息</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/employees/me</code></td>
+                    <td>404</td>
                     <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00", "id": 7, "user_id": 1, "status": 1, "created_at": "2026-</td>
-                    <td class="timestamp">13:42:53.429</td>
+                    <td class="fail">失败</td>
+                    <td class="details">{"code": 404, "message": "未找到关联的员工信息", "data": null}</td>
+                    <td class="timestamp">10:09:17.504</td>
                 </tr>
 
                 <tr>
                     <td>10</td>
-                    <td>获取员工详情</td>
-                    <td><span class="method GET">GET</span></td>
-                    <td><code>http://localhost:8000/api/employees/7</code></td>
-                    <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00", "id": 7, "user_id": 1, "status": 1, "created_at": "2026-</td>
-                    <td class="timestamp">13:42:53.435</td>
-                </tr>
-
-                <tr>
-                    <td>11</td>
-                    <td>更新员工</td>
-                    <td><span class="method PUT">PUT</span></td>
-                    <td><code>http://localhost:8000/api/employees/7</code></td>
-                    <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"employee_no": "EMP73384", "name": "李四", "department": "测试部", "position": "高级测试工程师", "phone": "13900139000", "hire_date": "2024-02-01T00:00:00", "id": 7, "user_id": 1, "status": 1, "created_at": "202</td>
-                    <td class="timestamp">13:42:53.453</td>
-                </tr>
-
-                <tr>
-                    <td>12</td>
                     <td>创建资产</td>
                     <td><span class="method POST">POST</span></td>
                     <td><code>http://localhost:8000/api/assets</code></td>
                     <td>201</td>
                     <td>201</td>
                     <td class="success">通过</td>
-                    <td class="details">{"asset_no": "AST73453", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN573453", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
-                    <td class="timestamp">13:42:53.466</td>
+                    <td class="details">{"asset_no": "AST57504", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN157504", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
+                    <td class="timestamp">10:09:17.526</td>
                 </tr>
 
                 <tr>
-                    <td>13</td>
+                    <td>11</td>
                     <td>创建资产-编号重复</td>
                     <td><span class="method POST">POST</span></td>
                     <td><code>http://localhost:8000/api/assets</code></td>
@@ -213,71 +189,71 @@
                     <td>400</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 400, "message": "资产编号已存在", "data": null}</td>
-                    <td class="timestamp">13:42:53.477</td>
+                    <td class="timestamp">10:09:17.534</td>
                 </tr>
 
                 <tr>
-                    <td>14</td>
+                    <td>12</td>
                     <td>资产列表</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/assets</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 3, "page": 1, "size": 10, "pages": 1, "items": [{"asset_no": "AST73453", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN573453", "p</td>
-                    <td class="timestamp">13:42:53.484</td>
+                    <td class="details">{"total": 57, "page": 1, "size": 10, "pages": 6, "items": [{"asset_no": "AST57504", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN157504", "</td>
+                    <td class="timestamp">10:09:17.546</td>
                 </tr>
 
                 <tr>
-                    <td>15</td>
+                    <td>13</td>
                     <td>资产列表-按类型筛选</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/assets</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 3, "page": 1, "size": 10, "pages": 1, "items": [{"asset_no": "AST73453", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN573453", "p</td>
-                    <td class="timestamp">13:42:53.495</td>
+                    <td class="details">{"total": 46, "page": 1, "size": 10, "pages": 5, "items": [{"asset_no": "AST57504", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN157504", "</td>
+                    <td class="timestamp">10:09:17.557</td>
                 </tr>
 
                 <tr>
-                    <td>16</td>
+                    <td>14</td>
                     <td>资产统计概览</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/assets/stats/summary</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total_employees": 2, "total_assets": 3, "assets_in_use": 0, "assets_available": 3, "assets_maintenance": 0, "assets_scrapped": 0, "recent_logs": [{"id": 13, "action": "checkout", "remark": "自动化测试项目使</td>
-                    <td class="timestamp">13:42:53.509</td>
+                    <td class="details">{"total_employees": 11, "total_assets": 57, "assets_in_use": 7, "assets_available": 50, "assets_maintenance": 0, "assets_scrapped": 0, "recent_logs": []}</td>
+                    <td class="timestamp">10:09:17.577</td>
+                </tr>
+
+                <tr>
+                    <td>15</td>
+                    <td>获取资产详情</td>
+                    <td><span class="method GET">GET</span></td>
+                    <td><code>http://localhost:8000/api/assets/147</code></td>
+                    <td>200</td>
+                    <td>200</td>
+                    <td class="success">通过</td>
+                    <td class="details">{"asset_no": "AST57504", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN157504", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
+                    <td class="timestamp">10:09:17.585</td>
+                </tr>
+
+                <tr>
+                    <td>16</td>
+                    <td>更新资产</td>
+                    <td><span class="method PUT">PUT</span></td>
+                    <td><code>http://localhost:8000/api/assets/147</code></td>
+                    <td>200</td>
+                    <td>200</td>
+                    <td class="success">通过</td>
+                    <td class="details">{"asset_no": "AST57504", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN157504", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
+                    <td class="timestamp">10:09:17.603</td>
                 </tr>
 
                 <tr>
                     <td>17</td>
-                    <td>获取资产详情</td>
-                    <td><span class="method GET">GET</span></td>
-                    <td><code>http://localhost:8000/api/assets/8</code></td>
-                    <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_no": "AST73453", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN573453", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
-                    <td class="timestamp">13:42:53.519</td>
-                </tr>
-
-                <tr>
-                    <td>18</td>
-                    <td>更新资产</td>
-                    <td><span class="method PUT">PUT</span></td>
-                    <td><code>http://localhost:8000/api/assets/8</code></td>
-                    <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_no": "AST73453", "name": "测试笔记本", "asset_type": "computer", "brand": "ThinkPad", "model": "X1 Carbon", "serial_number": "SN573453", "purchase_date": "2024-01-15T00:00:00", "purchase_price": 12</td>
-                    <td class="timestamp">13:42:53.532</td>
-                </tr>
-
-                <tr>
-                    <td>19</td>
                     <td>导出资产Excel</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/assets/export/excel</code></td>
@@ -285,119 +261,47 @@
                     <td>200</td>
                     <td class="success">通过</td>
                     <td class="details">Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</td>
-                    <td class="timestamp">13:42:54.253</td>
+                    <td class="timestamp">10:09:17.861</td>
                 </tr>
 
                 <tr>
-                    <td>20</td>
-                    <td>资产领用</td>
-                    <td><span class="method POST">POST</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs</code></td>
-                    <td>201</td>
-                    <td>201</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_id": 8, "employee_id": 7, "action": "checkout", "remark": "领用测试", "id": 17, "operator_id": 1, "created_at": "2026-08-25T05:42:54"}</td>
-                    <td class="timestamp">13:42:54.272</td>
-                </tr>
-
-                <tr>
-                    <td>21</td>
-                    <td>重复领用同一资产</td>
-                    <td><span class="method POST">POST</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs</code></td>
-                    <td>400</td>
-                    <td>400</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"code": 400, "message": "资产当前不可领用", "data": null}</td>
-                    <td class="timestamp">13:42:54.278</td>
-                </tr>
-
-                <tr>
-                    <td>22</td>
-                    <td>资产归还</td>
-                    <td><span class="method POST">POST</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs</code></td>
-                    <td>201</td>
-                    <td>201</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_id": 8, "employee_id": 7, "action": "return", "remark": "归还测试", "id": 18, "operator_id": 1, "created_at": "2026-08-25T05:42:54"}</td>
-                    <td class="timestamp">13:42:54.296</td>
-                </tr>
-
-                <tr>
-                    <td>23</td>
-                    <td>资产送修</td>
-                    <td><span class="method POST">POST</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs</code></td>
-                    <td>201</td>
-                    <td>201</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_id": 8, "employee_id": 7, "action": "maintenance_in", "remark": "送修测试", "id": 19, "operator_id": 1, "created_at": "2026-08-25T05:42:54"}</td>
-                    <td class="timestamp">13:42:54.314</td>
-                </tr>
-
-                <tr>
-                    <td>24</td>
-                    <td>资产修好</td>
-                    <td><span class="method POST">POST</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs</code></td>
-                    <td>201</td>
-                    <td>201</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"asset_id": 8, "employee_id": 7, "action": "maintenance_out", "remark": "修好领回", "id": 20, "operator_id": 1, "created_at": "2026-08-25T05:42:54"}</td>
-                    <td class="timestamp">13:42:54.328</td>
-                </tr>
-
-                <tr>
-                    <td>25</td>
+                    <td>18</td>
                     <td>流转记录列表</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/asset-logs</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 8, "page": 1, "size": 10, "pages": 1, "items": [{"asset_id": 8, "employee_id": 7, "action": "checkout", "remark": "领用测试", "id": 17, "operator_id": 1, "created_at": "2026-08-25T05:42:54", "as</td>
-                    <td class="timestamp">13:42:54.343</td>
+                    <td class="details">{"total": 0, "page": 1, "size": 10, "pages": 0, "items": []}</td>
+                    <td class="timestamp">10:09:17.875</td>
                 </tr>
 
                 <tr>
-                    <td>26</td>
+                    <td>19</td>
                     <td>流转记录-按资产筛选</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/asset-logs</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 4, "page": 1, "size": 10, "pages": 1, "items": [{"asset_id": 8, "employee_id": 7, "action": "checkout", "remark": "领用测试", "id": 17, "operator_id": 1, "created_at": "2026-08-25T05:42:54", "as</td>
-                    <td class="timestamp">13:42:54.356</td>
+                    <td class="details">{"total": 0, "page": 1, "size": 10, "pages": 0, "items": []}</td>
+                    <td class="timestamp">10:09:17.887</td>
                 </tr>
 
                 <tr>
-                    <td>27</td>
+                    <td>20</td>
                     <td>资产流转历史</td>
                     <td><span class="method GET">GET</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs/asset/8</code></td>
+                    <td><code>http://localhost:8000/api/asset-logs/asset/147</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total": 4, "page": 1, "size": 20, "pages": 1, "items": [{"asset_id": 8, "employee_id": 7, "action": "checkout", "remark": "领用测试", "id": 17, "operator_id": 1, "created_at": "2026-08-25T05:42:54", "as</td>
-                    <td class="timestamp">13:42:54.362</td>
+                    <td class="details">{"total": 0, "page": 1, "size": 20, "pages": 0, "items": []}</td>
+                    <td class="timestamp">10:09:17.896</td>
                 </tr>
 
                 <tr>
-                    <td>28</td>
-                    <td>员工资产记录</td>
-                    <td><span class="method GET">GET</span></td>
-                    <td><code>http://localhost:8000/api/asset-logs/employee/7</code></td>
-                    <td>200</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details">{"total": 4, "page": 1, "size": 20, "pages": 1, "items": [{"asset_id": 8, "employee_id": 7, "action": "maintenance_out", "remark": "修好领回", "id": 20, "operator_id": 1, "created_at": "2026-08-25T05:42:5</td>
-                    <td class="timestamp">13:42:54.376</td>
-                </tr>
-
-                <tr>
-                    <td>29</td>
+                    <td>21</td>
                     <td>导出流转记录Excel</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/asset-logs/export/excel</code></td>
@@ -405,83 +309,83 @@
                     <td>200</td>
                     <td class="success">通过</td>
                     <td class="details">Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</td>
-                    <td class="timestamp">13:42:54.405</td>
+                    <td class="timestamp">10:09:17.915</td>
                 </tr>
 
                 <tr>
-                    <td>30</td>
+                    <td>22</td>
                     <td>看板统计</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/stats</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"total_employees": 2, "total_assets": 3, "assets_in_use": 0, "assets_available": 3, "assets_maintenance": 0, "assets_scrapped": 0, "recent_logs": [{"asset_id": 8, "employee_id": 7, "action": "checkou</td>
-                    <td class="timestamp">13:42:54.417</td>
+                    <td class="details">{"total_employees": 11, "total_assets": 57, "assets_in_use": 7, "assets_available": 50, "assets_maintenance": 0, "assets_scrapped": 0, "recent_logs": []}</td>
+                    <td class="timestamp">10:09:17.929</td>
                 </tr>
 
                 <tr>
-                    <td>31</td>
+                    <td>23</td>
                     <td>看板-按类型统计</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/charts/assets-by-type</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">[{'type': 'computer', 'count': 3}]</td>
-                    <td class="timestamp">13:42:54.423</td>
+                    <td class="details">[{'type': 'computer', 'count': 46}, {'type': 'phone', 'count': 11}]</td>
+                    <td class="timestamp">10:09:17.937</td>
                 </tr>
 
                 <tr>
-                    <td>32</td>
+                    <td>24</td>
                     <td>看板-按状态统计</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/charts/assets-by-status</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">[{'status': 'available', 'count': 3}]</td>
-                    <td class="timestamp">13:42:54.429</td>
+                    <td class="details">[{'status': 'available', 'count': 50}, {'status': 'in_use', 'count': 7}]</td>
+                    <td class="timestamp">10:09:17.944</td>
                 </tr>
 
                 <tr>
-                    <td>33</td>
+                    <td>25</td>
                     <td>看板-按操作类型统计</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/charts/logs-by-action</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">[{'action': 'checkout', 'count': 2}, {'action': 'return', 'count': 2}, {'action': 'maintenance_in', 'count': 2}, {'action': 'maintenance_out', 'count': 2}]</td>
-                    <td class="timestamp">13:42:54.435</td>
+                    <td class="details"></td>
+                    <td class="timestamp">10:09:17.951</td>
                 </tr>
 
                 <tr>
-                    <td>34</td>
+                    <td>26</td>
                     <td>看板-按部门统计</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/charts/employees-by-department</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">[{'department': '测试部', 'count': 2}]</td>
-                    <td class="timestamp">13:42:54.441</td>
+                    <td class="details">[{'department': 'pytest部门', 'count': 7}, {'department': '测试部', 'count': 4}]</td>
+                    <td class="timestamp">10:09:17.958</td>
                 </tr>
 
                 <tr>
-                    <td>35</td>
+                    <td>27</td>
                     <td>看板-月度领用趋势</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/dashboard/charts/monthly-checkouts</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">[{'month': 8, 'count': 2}]</td>
-                    <td class="timestamp">13:42:54.447</td>
+                    <td class="details"></td>
+                    <td class="timestamp">10:09:17.966</td>
                 </tr>
 
                 <tr>
-                    <td>36</td>
+                    <td>28</td>
                     <td>无Token访问</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/employees</code></td>
@@ -489,11 +393,11 @@
                     <td>401</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 401, "message": "Not authenticated", "data": null}</td>
-                    <td class="timestamp">13:42:54.447</td>
+                    <td class="timestamp">10:09:17.969</td>
                 </tr>
 
                 <tr>
-                    <td>37</td>
+                    <td>29</td>
                     <td>员工尝试创建用户</td>
                     <td><span class="method POST">POST</span></td>
                     <td><code>http://localhost:8000/api/auth/register</code></td>
@@ -501,11 +405,11 @@
                     <td>403</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 403, "message": "权限不足，需要管理员权限", "data": null}</td>
-                    <td class="timestamp">13:42:54.762</td>
+                    <td class="timestamp">10:09:18.485</td>
                 </tr>
 
                 <tr>
-                    <td>38</td>
+                    <td>30</td>
                     <td>员工尝试删除用户</td>
                     <td><span class="method DELETE">DELETE</span></td>
                     <td><code>http://localhost:8000/api/auth/users/999</code></td>
@@ -513,11 +417,11 @@
                     <td>403</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 403, "message": "权限不足，需要管理员权限", "data": null}</td>
-                    <td class="timestamp">13:42:54.768</td>
+                    <td class="timestamp">10:09:18.490</td>
                 </tr>
 
                 <tr>
-                    <td>39</td>
+                    <td>31</td>
                     <td>员工尝试导出资产</td>
                     <td><span class="method GET">GET</span></td>
                     <td><code>http://localhost:8000/api/assets/export/excel</code></td>
@@ -525,43 +429,31 @@
                     <td>403</td>
                     <td class="success">通过</td>
                     <td class="details">{"code": 403, "message": "权限不足，需要管理员权限", "data": null}</td>
-                    <td class="timestamp">13:42:54.774</td>
+                    <td class="timestamp">10:09:18.495</td>
                 </tr>
 
                 <tr>
-                    <td>40</td>
-                    <td>删除资产-8</td>
+                    <td>32</td>
+                    <td>删除资产-147</td>
                     <td><span class="method DELETE">DELETE</span></td>
-                    <td><code>http://localhost:8000/api/assets/8</code></td>
+                    <td><code>http://localhost:8000/api/assets/147</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
                     <td class="details">{"message": "删除成功"}</td>
-                    <td class="timestamp">13:42:54.789</td>
+                    <td class="timestamp">10:09:18.511</td>
                 </tr>
 
                 <tr>
-                    <td>41</td>
-                    <td>删除员工-7</td>
+                    <td>33</td>
+                    <td>删除用户-116</td>
                     <td><span class="method DELETE">DELETE</span></td>
-                    <td><code>http://localhost:8000/api/employees/7</code></td>
+                    <td><code>http://localhost:8000/api/auth/users/116</code></td>
                     <td>200</td>
                     <td>200</td>
                     <td class="success">通过</td>
-                    <td class="details">{"message": "删除成功"}</td>
-                    <td class="timestamp">13:42:54.804</td>
-                </tr>
-
-                <tr>
-                    <td>42</td>
-                    <td>删除用户-1 (跳过: 当前用户)</td>
-                    <td><span class="method DELETE">DELETE</span></td>
-                    <td><code>/auth/users/1</code></td>
-                    <td>0</td>
-                    <td>200</td>
-                    <td class="success">通过</td>
-                    <td class="details"></td>
-                    <td class="timestamp">13:42:54.805</td>
+                    <td class="details">{"code": 400, "message": "不能删除自己", "data": null}</td>
+                    <td class="timestamp">10:09:18.516</td>
                 </tr>
 
             </tbody>

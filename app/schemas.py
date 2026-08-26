@@ -3,7 +3,7 @@ from typing import Optional, List
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from app.models import UserRole, AssetType, AssetStatus, LogAction
 
-
+#分角色模块，用户/资产/log/员工
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"

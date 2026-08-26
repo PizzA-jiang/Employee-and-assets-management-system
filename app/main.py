@@ -6,7 +6,7 @@ from app.routers import auth, employees, assets, asset_logs, dashboard
 from app.utils.response import register_exception_handlers
 
 settings = get_settings()
-
+#主页面启动
 # Create tables
 Base.metadata.create_all(bind=engine)
 

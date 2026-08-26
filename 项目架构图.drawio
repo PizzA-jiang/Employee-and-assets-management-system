@@ -1,0 +1,147 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="layered-arch" name="分层架构图">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1060" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hd1" value="企业资产管理系统 · 项目分层架构图" style="text;html=1;fontSize=18;fontStyle=1;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="18" width="520" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="&lt;b&gt;客户端&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;浏览器 / API 调用方&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="470" y="58" width="300" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="lane1" value="入口层（FastAPI 应用）" style="swimlane;rounded=1;arcSize=3;html=1;startSize=32;collapsible=0;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#f5faf5;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="156" width="1160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cm1" value="&lt;b&gt;main.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;应用入口 · 注册路由 / CORS 中间件 / 启动配置&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#82b366;fontSize=12;" vertex="1" parent="lane1">
+          <mxGeometry x="380" y="44" width="400" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2" value="路由层 · app/routers/" style="swimlane;rounded=1;arcSize=3;html=1;startSize=32;collapsible=0;fillColor=#ffe6cc;strokeColor=#d79b00;swimlaneFillColor=#fff7ef;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="316" width="1160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="&lt;b&gt;auth.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;登录认证 · Token 签发&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="lane2">
+          <mxGeometry x="38" y="44" width="205" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="&lt;b&gt;employees.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;员工信息管理&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="lane2">
+          <mxGeometry x="258" y="44" width="205" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="&lt;b&gt;assets.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;资产台账管理&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="lane2">
+          <mxGeometry x="478" y="44" width="205" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="&lt;b&gt;asset_logs.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;资产流转记录&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="lane2">
+          <mxGeometry x="698" y="44" width="205" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="&lt;b&gt;dashboard.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;数据统计看板&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="lane2">
+          <mxGeometry x="918" y="44" width="205" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3" value="业务逻辑层" style="swimlane;rounded=1;arcSize=3;html=1;startSize=32;collapsible=0;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fffcf0;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="506" width="1160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bz1" value="&lt;b&gt;dependencies.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;认证鉴权 · 权限依赖注入&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="lane3">
+          <mxGeometry x="28" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="bz2" value="&lt;b&gt;security.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;JWT 签名 · bcrypt 密码加密&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="lane3">
+          <mxGeometry x="308" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="bz3" value="&lt;b&gt;crud.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;数据库操作封装&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="lane3">
+          <mxGeometry x="588" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="bz4" value="&lt;b&gt;utils/response.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;统一响应格式包装&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="lane3">
+          <mxGeometry x="868" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="lane4" value="数据模型层" style="swimlane;rounded=1;arcSize=3;html=1;startSize=32;collapsible=0;fillColor=#e1d5e7;strokeColor=#9673a6;swimlaneFillColor=#f8f2fa;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="696" width="1160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="dt1" value="&lt;b&gt;schemas.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Pydantic 请求 / 响应校验&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="lane4">
+          <mxGeometry x="28" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="dt2" value="&lt;b&gt;models.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;SQLAlchemy ORM 模型&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="lane4">
+          <mxGeometry x="308" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="dt3" value="&lt;b&gt;database.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;连接池 · 会话管理&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="lane4">
+          <mxGeometry x="588" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="dt4" value="&lt;b&gt;config.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;环境变量配置（.env）&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="lane4">
+          <mxGeometry x="868" y="44" width="265" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="db1" value="&lt;b&gt;MySQL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;asset_management 数据库&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=14;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="520" y="886" width="200" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="pe1" value="HTTP 请求" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;" edge="1" parent="1" source="c1" target="lane1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;" edge="1" parent="1" source="lane1" target="lane2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;" edge="1" parent="1" source="lane2" target="lane3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;" edge="1" parent="1" source="lane3" target="lane4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe5" value="SQL 读写" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#666666;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;" edge="1" parent="1" source="lane4" target="db1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="request-flow" name="请求数据流向图">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sub2" value="请求数据流向图 —— 示例：GET /api/assets（员工查询资产列表）" style="text;html=1;fontSize=16;fontStyle=1;fontColor=#333333;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="14" width="760" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="l0" value="&lt;b&gt;客户端&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;浏览器&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="&lt;b&gt;main.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;应用入口&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="&lt;b&gt;dependencies.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;JWT 鉴权&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="&lt;b&gt;routers/assets.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;路由处理&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" value="&lt;b&gt;crud.py · models.py&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;数据访问层&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="900" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" value="&lt;b&gt;MySQL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;数据库&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;size=44;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="50" width="170" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" value="① GET /api/assets ＋ Token" style="html=1;fontSize=11;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=1;exitY=0.138;entryX=0;entryY=0.138;" edge="1" parent="1" source="l0" target="l1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g2" value="② JWT 鉴权校验" style="html=1;fontSize=11;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=1;exitY=0.218;entryX=0;entryY=0.218;" edge="1" parent="1" source="l1" target="l2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="③ 校验通过，返回当前用户" style="html=1;fontSize=11;dashed=1;endArrow=open;endFill=0;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=0;exitY=0.298;entryX=1;entryY=0.298;" edge="1" parent="1" source="l2" target="l1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g4" value="④ 分发到 assets 路由" style="html=1;fontSize=11;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=1;exitY=0.378;entryX=0;entryY=0.378;" edge="1" parent="1" source="l1" target="l3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g5" value="⑤ schemas 校验参数，调用查询封装" style="html=1;fontSize=11;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=1;exitY=0.458;entryX=0;entryY=0.458;" edge="1" parent="1" source="l3" target="l4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g6" value="⑥ ORM 生成 SQL 并执行" style="html=1;fontSize=11;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=1;exitY=0.538;entryX=0;entryY=0.538;" edge="1" parent="1" source="l4" target="l5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g7" value="⑦ 返回结果集" style="html=1;fontSize=11;dashed=1;endArrow=open;endFill=0;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=0;exitY=0.618;entryX=1;entryY=0.618;" edge="1" parent="1" source="l5" target="l4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g8" value="⑧ 返回对象列表" style="html=1;fontSize=11;dashed=1;endArrow=open;endFill=0;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=0;exitY=0.698;entryX=1;entryY=0.698;" edge="1" parent="1" source="l4" target="l3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g9" value="⑨ response.py 统一包装，JSON 响应" style="html=1;fontSize=11;dashed=1;endArrow=open;endFill=0;strokeWidth=1.5;labelBackgroundColor=#FFFFFF;verticalAlign=bottom;exitX=0;exitY=0.778;entryX=1;entryY=0.778;" edge="1" parent="1" source="l3" target="l0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nt2" value="注：所有接口遵循同一链路；写操作（POST / PUT / DELETE）额外经过 dependencies.check_admin 管理员权限校验。" style="text;html=1;fontSize=11;fontColor=#666666;align=left;" vertex="1" parent="1">
+          <mxGeometry x="60" y="722" width="1000" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

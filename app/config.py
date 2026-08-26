@@ -1,7 +1,7 @@
 from functools import lru_cache
 from pydantic_settings import BaseSettings
 
-
+#基础个性化配置，包含数据库连接信息
 class Settings(BaseSettings):
     database_url: str = "mysql+pymysql://root:101704@localhost:3306/asset_management?charset=utf8mb4"
     secret_key: str = "your-super-secret-key-change-in-production"

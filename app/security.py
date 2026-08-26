@@ -1,3 +1,5 @@
+#密码校验，token生成与检验
+
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt, JWTError

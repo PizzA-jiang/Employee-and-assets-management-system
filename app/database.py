@@ -6,6 +6,7 @@ import urllib.parse
 
 settings = get_settings()
 
+#数据库连接+依赖注入
 def create_database_if_not_exists():
     """Create database if it doesn't exist"""
     # Parse the database URL to extract connection info without database name

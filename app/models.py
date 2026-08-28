@@ -59,6 +59,7 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
 
     employee = relationship("Employee", back_populates="user", uselist=False)
+    cloud_files = relationship("CloudFile", back_populates="owner")
 
 
 class Employee(Base):
@@ -119,3 +120,49 @@ class AssetLog(Base):
         Index("idx_asset_log_asset_created", "asset_id", "created_at"),
         Index("idx_asset_log_employee_created", "employee_id", "created_at"),
     )
+
+
+class OperationLog(Base):
+    __tablename__ = "operation_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="操作人ID")
+    action = Column(String(50), nullable=False, comment="操作类型")
+    target_type = Column(String(50), nullable=False, comment="目标类型")
+    target_id = Column(Integer, nullable=False, comment="目标ID")
+    target_name = Column(String(100), nullable=True, comment="目标名称")
+    detail = Column(Text, nullable=True, comment="操作详情")
+    ip_address = Column(String(50), nullable=True, comment="IP地址")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    user = relationship("User")
+
+
+class CloudFile(Base):
+    __tablename__ = "cloud_files"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="所有者ID")
+    filename = Column(String(255), nullable=False, comment="原始文件名")
+    stored_name = Column(String(255), nullable=False, comment="存储文件名")
+    file_path = Column(String(500), nullable=False, comment="文件路径")
+    file_size = Column(Integer, nullable=False, comment="文件大小(字节)")
+    mime_type = Column(String(100), nullable=True, comment="MIME类型")
+    is_public = Column(Integer, default=0, comment="是否公共文件(1=是, 0=否)")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    owner = relationship("User", back_populates="cloud_files")
+
+
+class FileShare(Base):
+    __tablename__ = "file_shares"
+
+    id = Column(Integer, primary_key=True, index=True)
+    file_id = Column(Integer, ForeignKey("cloud_files.id"), nullable=False, comment="文件ID")
+    shared_to_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="共享给用户ID")
+    shared_by_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="分享者ID")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="共享时间")
+
+    file = relationship("CloudFile")
+    shared_to = relationship("User", foreign_keys=[shared_to_id])
+    shared_by = relationship("User", foreign_keys=[shared_by_id])

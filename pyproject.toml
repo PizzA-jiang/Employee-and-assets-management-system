@@ -18,6 +18,7 @@ dependencies = [
     "pandas>=2.2.0",
     "requests>=2.31.0",
     "pytest>=7.4.4",
+    "pypinyin>=0.55.0",
 ]
 
 [build-system]

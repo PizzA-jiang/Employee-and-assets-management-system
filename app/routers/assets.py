@@ -11,6 +11,7 @@ from app.crud import (
 )
 from app.dependencies import get_current_user, get_current_admin
 from app.models import User, UserRole, AssetStatus
+from app.utils.operation_log import log_operation
 
 router = APIRouter(prefix="/assets", tags=["资产管理"])
 
@@ -26,6 +27,16 @@ def create_asset_api(
     if asset_in.serial_number and get_asset_by_serial(db, asset_in.serial_number):
         raise HTTPException(status_code=400, detail="序列号已存在")
     asset = create_asset(db, asset_in)
+    
+    log_operation(
+        db=db,
+        user_id=current_user.id,
+        action="create",
+        target_type="asset",
+        target_id=asset.id,
+        target_name=asset.name,
+    )
+    
     return asset
 
 
@@ -35,10 +46,11 @@ def list_assets(
     name: str = None,
     asset_type: str = None,
     status: str = None,
+    keyword: str = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    items, total = get_assets(db, params, name, asset_type, status)
+    items, total = get_assets(db, params, name, asset_type, status, keyword)
     pages = (total + params.size - 1) // params.size
     return {
         "total": total,
@@ -95,6 +107,16 @@ def update_asset_info(
     asset = update_asset(db, asset_id, asset_in)
     if not asset:
         raise HTTPException(status_code=404, detail="资产不存在")
+    
+    log_operation(
+        db=db,
+        user_id=current_user.id,
+        action="update",
+        target_type="asset",
+        target_id=asset.id,
+        target_name=asset.name,
+    )
+    
     return asset
 
 
@@ -109,8 +131,20 @@ def delete_asset_by_id(
         raise HTTPException(status_code=404, detail="资产不存在")
     if asset.status == AssetStatus.IN_USE:
         raise HTTPException(status_code=400, detail="资产正在使用中，无法删除")
+    
+    asset_name = asset.name
     if not delete_asset(db, asset_id):
         raise HTTPException(status_code=404, detail="资产不存在")
+    
+    log_operation(
+        db=db,
+        user_id=current_user.id,
+        action="delete",
+        target_type="asset",
+        target_id=asset_id,
+        target_name=asset_name,
+    )
+    
     return {"message": "删除成功"}
 
 

@@ -14,6 +14,9 @@ frontend/node_modules/
 opencode.json
 .opencode/
 mcp-config.json
+test_mcp.py
+test_new_feature.py
+mcp_mysql_server.py
 
 # Logs
 *.log
@@ -21,3 +24,6 @@ mcp-config.json
 # OS
 .DS_Store
 Thumbs.db
+
+# file
+file/

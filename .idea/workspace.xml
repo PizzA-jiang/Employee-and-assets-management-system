@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="去除MCP相关文件">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="更新readme信息" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,7 +122,7 @@
       <workItem from="1787623285919" duration="8639000" />
       <workItem from="1787708596906" duration="17640000" />
       <workItem from="1787814233737" duration="5736000" />
-      <workItem from="1787880935521" duration="2563000" />
+      <workItem from="1787880935521" duration="2916000" />
     </task>
     <task id="LOCAL-00001" summary="修复了服务器url错误的问题">
       <option name="closed" value="true" />
@@ -166,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787883358689</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="更新readme信息">
+      <option name="closed" value="true" />
+      <created>1787883909381</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1787883909381</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,7 +195,8 @@
     <MESSAGE value="新分支初始化" />
     <MESSAGE value="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步" />
     <MESSAGE value="去除MCP相关文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="去除MCP相关文件" />
+    <MESSAGE value="更新readme信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新readme信息" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

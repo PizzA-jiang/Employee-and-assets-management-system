@@ -1,0 +1,33 @@
+[project]
+name = "asset-management"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "sqlalchemy>=2.0.40",
+    "pymysql>=1.1.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.6",
+    "pydantic>=2.10.0",
+    "pydantic[email]>=2.10.0",
+    "python-dotenv>=1.0.0",
+    "pydantic-settings>=2.7.0",
+    "openpyxl>=3.1.2",
+    "pandas>=2.2.0",
+    "requests>=2.31.0",
+    "pytest>=7.4.4",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+exclude = ["test2*", "frontend*"]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+name = "tsinghua"

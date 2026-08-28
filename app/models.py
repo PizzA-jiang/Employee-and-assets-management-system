@@ -152,6 +152,7 @@ class CloudFile(Base):
     created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
 
     owner = relationship("User", back_populates="cloud_files")
+    shares = relationship("FileShare", back_populates="file", cascade="all, delete-orphan")
 
 
 class FileShare(Base):
@@ -163,6 +164,6 @@ class FileShare(Base):
     shared_by_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="分享者ID")
     created_at = Column(DateTime, default=datetime.utcnow, comment="共享时间")
 
-    file = relationship("CloudFile")
+    file = relationship("CloudFile", back_populates="shares")
     shared_to = relationship("User", foreign_keys=[shared_to_id])
     shared_by = relationship("User", foreign_keys=[shared_by_id])

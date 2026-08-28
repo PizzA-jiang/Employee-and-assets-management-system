@@ -1,3 +1,11 @@
+**#快速启动+文件说明**
+运行环境：X86架构windows系统
+操作说明：数据库服务器在.env中进行配置，启动后再执行后面的操作
+启动setup.bat会自动检索配置依赖环境，启动start会自动启动前后端服务，输入任意按键停止服务
+
+
+
+
 # 企业资产管理后台系统
 
 基于 FastAPI + MySQL + SQLAlchemy 的企业内部资产管理系统。
@@ -49,7 +57,7 @@ SECRET_KEY=your-super-secret-key-change-in-production
 CREATE DATABASE asset_management CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 4. 启动服务
+### 4. 手动启动服务
 
 ```bash
 uvicorn app.main:app --reload

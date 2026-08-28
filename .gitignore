@@ -10,6 +10,11 @@ frontend/node_modules/
 # IDE
 .idea/
 
+# opencode
+opencode.json
+.opencode/
+mcp-config.json
+
 # Logs
 *.log
 

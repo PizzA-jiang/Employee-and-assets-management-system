@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="新分支初始化">
-      <change beforePath="$PROJECT_DIR$/.idea/code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/code.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/example_api_usage.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/example_api_usage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +113,7 @@
       <workItem from="1787623285919" duration="8639000" />
       <workItem from="1787708596906" duration="17640000" />
       <workItem from="1787814233737" duration="5736000" />
+      <workItem from="1787880935521" duration="1875000" />
     </task>
     <task id="LOCAL-00001" summary="修复了服务器url错误的问题">
       <option name="closed" value="true" />
@@ -141,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787729356929</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步">
+      <option name="closed" value="true" />
+      <created>1787881095312</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1787881095312</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +168,8 @@
     <MESSAGE value="修复了服务器url错误的问题" />
     <MESSAGE value="增加了文件开头注释，项目架构示意图" />
     <MESSAGE value="新分支初始化" />
-    <option name="LAST_COMMIT_MESSAGE" value="新分支初始化" />
+    <MESSAGE value="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

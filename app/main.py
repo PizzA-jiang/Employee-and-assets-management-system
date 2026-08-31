@@ -19,7 +19,7 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],#实例化防止冲突，后续可改为域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

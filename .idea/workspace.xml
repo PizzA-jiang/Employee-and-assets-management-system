@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']">
+    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="添加前端白名单为本地开发地址5173端口，可修改为公网域名">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "检索/导出/云盘功能开发",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.org.intellij.plugins.postcss.highlighting.PostCssColorsPage",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -127,7 +126,7 @@
       <workItem from="1787814233737" duration="5736000" />
       <workItem from="1787880935521" duration="4544000" />
       <workItem from="1787894348346" duration="5992000" />
-      <workItem from="1788139765693" duration="3334000" />
+      <workItem from="1788139765693" duration="5824000" />
     </task>
     <task id="LOCAL-00001" summary="修复了服务器url错误的问题">
       <option name="closed" value="true" />
@@ -217,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788142252760</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="添加前端白名单为本地开发地址5173端口，可修改为公网域名">
+      <option name="closed" value="true" />
+      <created>1788143333590</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1788143333590</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +252,8 @@
     <MESSAGE value="新功能后端实现" />
     <MESSAGE value="新功能前端实现" />
     <MESSAGE value="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']" />
-    <option name="LAST_COMMIT_MESSAGE" value="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']" />
+    <MESSAGE value="添加前端白名单为本地开发地址5173端口，可修改为公网域名" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加前端白名单为本地开发地址5173端口，可修改为公网域名" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

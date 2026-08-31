@@ -1,6 +1,7 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.database import get_db
 from app.schemas import (
     LoginRequest, Token, UserCreate, UserResponse,
@@ -45,6 +46,12 @@ def register(user_in: UserCreate, db: Session = Depends(get_db), current_user: U
     if user_in.email and db.query(User).filter(User.email == user_in.email).first():
         raise BizException("邮箱已被注册", code=400)
     user = create_user(db, user_in)
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise BizException("用户名或邮箱已存在", code=400)
+    db.refresh(user)
     return user
 
 
@@ -81,6 +88,12 @@ def update_user_info(
     user = update_user(db, user_id, user_in)
     if not user:
         raise BizException("用户不存在", code=404)
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise BizException("用户名或邮箱已存在", code=400)
+    db.refresh(user)
     return R.ok(data=user, message="更新成功", schema=UserResponse)
 
 
@@ -94,4 +107,5 @@ def delete_user_by_id(
         raise BizException("不能删除自己", code=400)
     if not delete_user(db, user_id):
         raise BizException("用户不存在", code=404)
+    db.commit()
     return R.ok(message="删除成功")

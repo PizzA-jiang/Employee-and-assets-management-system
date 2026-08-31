@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from app.database import get_db
 from app.schemas import (
     AssetCreate, AssetUpdate, AssetResponse,
@@ -36,6 +37,13 @@ def create_asset_api(
         target_id=asset.id,
         target_name=asset.name,
     )
+    
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="资产编号或序列号已存在")
+    db.refresh(asset)
     
     return asset
 
@@ -117,6 +125,13 @@ def update_asset_info(
         target_name=asset.name,
     )
     
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="资产编号或序列号已存在")
+    db.refresh(asset)
+    
     return asset
 
 
@@ -145,6 +160,7 @@ def delete_asset_by_id(
         target_name=asset_name,
     )
     
+    db.commit()
     return {"message": "删除成功"}
 
 

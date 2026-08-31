@@ -58,6 +58,8 @@ def create_asset_log_api(
             raise HTTPException(status_code=400, detail="资产已报废")
     
     log = create_asset_log(db, log_in, current_user.id)
+    db.commit()
+    db.refresh(log)
     return log
 
 
@@ -72,7 +74,7 @@ def list_asset_logs(
 ):
     # 普通员工只能看自己的记录
     if current_user.role != UserRole.ADMIN:
-        employee = db.query(get_employee.Employee).filter(
+        employee = db.query(Employee).filter(
             Employee.user_id == current_user.id
         ).first()
         if employee:

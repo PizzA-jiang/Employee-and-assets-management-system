@@ -96,6 +96,7 @@ class Asset(Base):
     purchase_price = Column(Integer, nullable=True, comment="采购价格(分)")
     location = Column(String(100), nullable=True, comment="存放位置")
     remark = Column(Text, nullable=True, comment="备注")
+    version = Column(Integer, default=0, nullable=False, comment="乐观锁版本号")
     created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
 

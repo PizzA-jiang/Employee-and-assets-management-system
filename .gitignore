@@ -4,6 +4,11 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+#tests
+tests
+test2
+test4
+
 # Node
 frontend/node_modules/
 
@@ -27,3 +32,4 @@ Thumbs.db
 
 # file
 file/
+

@@ -78,7 +78,7 @@ async def upload_file(
         mime_type=file.content_type,
     )
     db.add(cloud_file)
-    db.commit()
+    db.flush()
     db.refresh(cloud_file)
 
     log_operation(
@@ -89,6 +89,8 @@ async def upload_file(
         target_id=cloud_file.id,
         target_name=cloud_file.filename,
     )
+
+    db.commit()
 
     return CloudFileResponse(
         id=cloud_file.id,
@@ -217,6 +219,8 @@ def download_file(
         target_name=cloud_file.filename,
     )
 
+    db.commit()
+
     return FileResponse(
         path=download_path,
         filename=cloud_file.filename,
@@ -245,7 +249,7 @@ def delete_file_endpoint(
 
     db.query(FileShare).filter(FileShare.file_id == file_id).delete()
     db.delete(cloud_file)
-    db.commit()
+    db.flush()
 
     log_operation(
         db=db,
@@ -255,6 +259,8 @@ def delete_file_endpoint(
         target_id=file_id,
         target_name=cloud_file.filename,
     )
+
+    db.commit()
 
     return {"message": "删除成功"}
 
@@ -302,7 +308,7 @@ def share_file(
             stored_name=cloud_file.stored_name,
         )
 
-    db.commit()
+    db.flush()
 
     log_operation(
         db=db,
@@ -313,6 +319,8 @@ def share_file(
         target_name=cloud_file.filename,
         detail=f"共享给用户: {share_in.user_ids}",
     )
+
+    db.commit()
 
     return {"message": "共享成功"}
 
@@ -339,7 +347,7 @@ def cancel_share(
     delete_share_dir(share_id)
 
     db.delete(share)
-    db.commit()
+    db.flush()
 
     log_operation(
         db=db,
@@ -350,6 +358,8 @@ def cancel_share(
         target_name=cloud_file.filename,
         detail=f"取消共享给用户: {share.shared_to_id}",
     )
+
+    db.commit()
 
     return {"message": "取消共享成功"}
 

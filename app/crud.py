@@ -93,15 +93,27 @@ def get_employees(
     name: Optional[str] = None,
     department: Optional[str] = None,
     status: Optional[int] = None,
+    keyword: Optional[str] = None,
 ) -> Tuple[List[Employee], int]:
     query = db.query(Employee).options(joinedload(Employee.user))
     
-    if name:
-        query = query.filter(Employee.name.contains(name))
-    if department:
-        query = query.filter(Employee.department.contains(department))
-    if status is not None:
-        query = query.filter(Employee.status == status)
+    if keyword:
+        query = query.filter(
+            or_(
+                Employee.name.contains(keyword),
+                Employee.employee_no.contains(keyword),
+                Employee.department.contains(keyword),
+                Employee.position.contains(keyword),
+                Employee.phone.contains(keyword),
+            )
+        )
+    else:
+        if name:
+            query = query.filter(Employee.name.contains(name))
+        if department:
+            query = query.filter(Employee.department.contains(department))
+        if status is not None:
+            query = query.filter(Employee.status == status)
     
     total = query.count()
     items = query.order_by(desc(Employee.created_at)).offset((params.page - 1) * params.size).limit(params.size).all()
@@ -157,15 +169,28 @@ def get_assets(
     name: Optional[str] = None,
     asset_type: Optional[str] = None,
     status: Optional[str] = None,
+    keyword: Optional[str] = None,
 ) -> Tuple[List[Asset], int]:
     query = db.query(Asset)
     
-    if name:
-        query = query.filter(Asset.name.contains(name))
-    if asset_type:
-        query = query.filter(Asset.asset_type == asset_type)
-    if status:
-        query = query.filter(Asset.status == status)
+    if keyword:
+        query = query.filter(
+            or_(
+                Asset.asset_no.contains(keyword),
+                Asset.name.contains(keyword),
+                Asset.brand.contains(keyword),
+                Asset.model.contains(keyword),
+                Asset.serial_number.contains(keyword),
+                Asset.location.contains(keyword),
+            )
+        )
+    else:
+        if name:
+            query = query.filter(Asset.name.contains(name))
+        if asset_type:
+            query = query.filter(Asset.asset_type == asset_type)
+        if status:
+            query = query.filter(Asset.status == status)
     
     total = query.count()
     items = query.order_by(desc(Asset.created_at)).offset((params.page - 1) * params.size).limit(params.size).all()

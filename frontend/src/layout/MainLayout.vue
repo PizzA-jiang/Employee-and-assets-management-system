@@ -25,6 +25,14 @@
           <el-icon><Tickets /></el-icon>
           <span>流转记录</span>
         </el-menu-item>
+        <el-menu-item v-if="userStore.isAdmin" index="/operation-logs">
+          <el-icon><Document /></el-icon>
+          <span>操作日志</span>
+        </el-menu-item>
+        <el-menu-item index="/cloud-files">
+          <el-icon><FolderOpened /></el-icon>
+          <span>云盘</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
 

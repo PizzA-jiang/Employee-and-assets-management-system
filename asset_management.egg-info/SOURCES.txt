@@ -13,9 +13,12 @@ app/routers/__init__.py
 app/routers/asset_logs.py
 app/routers/assets.py
 app/routers/auth.py
+app/routers/cloud_files.py
 app/routers/dashboard.py
 app/routers/employees.py
+app/routers/operation_logs.py
 app/utils/__init__.py
+app/utils/operation_log.py
 app/utils/response.py
 asset_management.egg-info/PKG-INFO
 asset_management.egg-info/SOURCES.txt

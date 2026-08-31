@@ -2,6 +2,9 @@
   <el-card shadow="never">
     <div class="toolbar">
       <el-form :inline="true" :model="query" class="filter-form" @submit.prevent>
+        <el-form-item label="关键词">
+          <el-input v-model="query.keyword" placeholder="姓名/工号/部门/职位/电话" clearable style="width: 200px" @keyup.enter="handleSearch" />
+        </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="query.name" placeholder="按姓名搜索" clearable style="width: 160px" @keyup.enter="handleSearch" />
         </el-form-item>
@@ -19,7 +22,10 @@
           <el-button :icon="'Refresh'" @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-button v-if="userStore.isAdmin" type="primary" :icon="'Plus'" @click="openAdd">新增员工</el-button>
+      <div class="toolbar-right">
+        <el-button v-if="userStore.isAdmin" type="success" :icon="'Download'" @click="handleExport">导出Excel</el-button>
+        <el-button v-if="userStore.isAdmin" type="primary" :icon="'Plus'" @click="openAdd">新增员工</el-button>
+      </div>
     </div>
 
     <el-table v-loading="loading" :data="list" border stripe>
@@ -177,6 +183,7 @@ const total = ref(0)
 const query = reactive({
   page: 1,
   size: 10,
+  keyword: '',
   name: '',
   department: '',
   status: null,
@@ -225,6 +232,7 @@ async function load() {
       page: query.page,
       size: query.size,
     }
+    if (query.keyword) params.keyword = query.keyword
     if (query.name) params.name = query.name
     if (query.department) params.department = query.department
     if (query.status !== null && query.status !== '') params.status = query.status
@@ -242,10 +250,30 @@ function handleSearch() {
 }
 
 function handleReset() {
+  query.keyword = ''
   query.name = ''
   query.department = ''
   query.status = null
   handleSearch()
+}
+
+function handleExport() {
+  import('axios').then(({ default: axios }) => {
+    const token = localStorage.getItem('asset_token')
+    axios.get('/api/employees/export/excel', {
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: 'blob',
+    }).then(res => {
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'employees_export.xlsx')
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.URL.revokeObjectURL(url)
+    })
+  })
 }
 
 function handleSizeChange() {
@@ -353,6 +381,10 @@ onMounted(load)
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 4px;
+}
+.toolbar-right {
+  display: flex;
+  gap: 8px;
 }
 .filter-form :deep(.el-form-item) {
   margin-bottom: 8px;

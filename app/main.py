@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.database import engine, Base
-from app.routers import auth, employees, assets, asset_logs, dashboard
+from app.routers import auth, employees, assets, asset_logs, dashboard, operation_logs, cloud_files
 from app.utils.response import register_exception_handlers
 
 settings = get_settings()
@@ -19,7 +19,7 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],#实例化防止冲突，后续可改为域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,6 +31,8 @@ app.include_router(employees.router, prefix="/api")
 app.include_router(assets.router, prefix="/api")
 app.include_router(asset_logs.router, prefix="/api")
 app.include_router(dashboard.router, prefix="/api")
+app.include_router(operation_logs.router, prefix="/api")
+app.include_router(cloud_files.router, prefix="/api")
 
 # Register exception handlers
 register_exception_handlers(app)

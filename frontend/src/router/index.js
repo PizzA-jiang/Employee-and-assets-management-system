@@ -31,6 +31,18 @@ const routes = [
         component: () => import('../views/AssetLogList.vue'),
         meta: { title: '流转记录', requireAdmin: true },
       },
+      {
+        path: 'operation-logs',
+        name: 'OperationLogs',
+        component: () => import('../views/OperationLogList.vue'),
+        meta: { title: '操作日志', requireAdmin: true },
+      },
+      {
+        path: 'cloud-files',
+        name: 'CloudFiles',
+        component: () => import('../views/CloudFiles.vue'),
+        meta: { title: '云盘' },
+      },
     ],
   },
 ]

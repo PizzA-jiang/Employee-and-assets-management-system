@@ -190,6 +190,31 @@ class LoginRequest(BaseModel):
     password: str
 
 
+# CloudFile schemas
+class CloudFileResponse(BaseModel):
+    id: int
+    filename: str
+    file_size: int
+    mime_type: Optional[str] = None
+    is_public: int = 0
+    user_id: int
+    owner_name: Optional[str] = None
+    is_shared: bool = False
+    shared_by: Optional[str] = None
+    shared_to_names: Optional[List[str]] = None
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CloudFilePageResponse(PageResponse):
+    items: List[CloudFileResponse]
+
+
+class FileShareCreate(BaseModel):
+    user_ids: List[int]
+
+
 # Forward references
 UserWithEmployee.model_rebuild()
 EmployeeWithUser.model_rebuild()

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="更新readme信息" />
+    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,24 +44,24 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "PizzA-jiang"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;PizzA-jiang&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/PizzA-jiang/Employee-and-assets-management-system.git",
-    "accountId": "b98f3a46-01ee-4d66-bccd-5ba94996d4ba"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PizzA-jiang/Employee-and-assets-management-system.git&quot;,
+    &quot;accountId&quot;: &quot;b98f3a46-01ee-4d66-bccd-5ba94996d4ba&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2,
   &quot;fromUser&quot;: false
@@ -78,9 +81,9 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "检索/导出/云盘功能开发",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -122,7 +125,9 @@
       <workItem from="1787623285919" duration="8639000" />
       <workItem from="1787708596906" duration="17640000" />
       <workItem from="1787814233737" duration="5736000" />
-      <workItem from="1787880935521" duration="2916000" />
+      <workItem from="1787880935521" duration="4544000" />
+      <workItem from="1787894348346" duration="5992000" />
+      <workItem from="1788139765693" duration="3334000" />
     </task>
     <task id="LOCAL-00001" summary="修复了服务器url错误的问题">
       <option name="closed" value="true" />
@@ -172,7 +177,47 @@
       <option name="project" value="LOCAL" />
       <updated>1787883909381</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="删除不必要的mcp信息">
+      <option name="closed" value="true" />
+      <created>1787884204587</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1787884204587</updated>
+    </task>
+    <task id="LOCAL-00008" summary="新分支初始化">
+      <option name="closed" value="true" />
+      <created>1787903578159</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1787903578159</updated>
+    </task>
+    <task id="LOCAL-00009" summary="新功能后端实现">
+      <option name="closed" value="true" />
+      <created>1787906062291</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1787906062291</updated>
+    </task>
+    <task id="LOCAL-00010" summary="新功能前端实现">
+      <option name="closed" value="true" />
+      <created>1787908478936</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1787908478936</updated>
+    </task>
+    <task id="LOCAL-00011" summary="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']">
+      <option name="closed" value="true" />
+      <created>1788142252760</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1788142252760</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,11 +237,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修复了服务器url错误的问题" />
     <MESSAGE value="增加了文件开头注释，项目架构示意图" />
-    <MESSAGE value="新分支初始化" />
     <MESSAGE value="前端页面开发完成，新增功能：管理员可查看资产流转表一键启动依赖同步，一键启动前后端项目，新增uvlock和toml文件便于同步" />
     <MESSAGE value="去除MCP相关文件" />
     <MESSAGE value="更新readme信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新readme信息" />
+    <MESSAGE value="删除不必要的mcp信息" />
+    <MESSAGE value="新分支初始化" />
+    <MESSAGE value="新功能后端实现" />
+    <MESSAGE value="新功能前端实现" />
+    <MESSAGE value="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']" />
+    <option name="LAST_COMMIT_MESSAGE" value="全局命名空间重构get_asset.__globals\__;__globals__['AssetLog'];get_asset_log.__globals__['joinedload']" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

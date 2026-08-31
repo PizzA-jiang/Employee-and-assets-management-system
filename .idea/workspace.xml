@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="新功能后端实现">
+    <list default="true" id="64e361fa-aa21-4f7c-af9c-311812de899a" name="更改" comment="新功能前端实现">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/layout/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/layout/MainLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/AssetList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/AssetList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/views/EmployeeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/EmployeeList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/asset_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/asset_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/assets.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/assets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/employees.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/employees.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +85,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "检索/导出/云盘功能开发",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -129,7 +128,8 @@
       <workItem from="1787708596906" duration="17640000" />
       <workItem from="1787814233737" duration="5736000" />
       <workItem from="1787880935521" duration="4544000" />
-      <workItem from="1787894348346" duration="5368000" />
+      <workItem from="1787894348346" duration="5992000" />
+      <workItem from="1788139765693" duration="2217000" />
     </task>
     <task id="LOCAL-00001" summary="修复了服务器url错误的问题">
       <option name="closed" value="true" />
@@ -203,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787906062291</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="新功能前端实现">
+      <option name="closed" value="true" />
+      <created>1787908478936</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1787908478936</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +237,8 @@
     <MESSAGE value="删除不必要的mcp信息" />
     <MESSAGE value="新分支初始化" />
     <MESSAGE value="新功能后端实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="新功能后端实现" />
+    <MESSAGE value="新功能前端实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="新功能前端实现" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

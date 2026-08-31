@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session,joinedload
 from app.database import get_db
 from app.schemas import (
     AssetLogCreate, AssetLogResponse, AssetLogWithDetails,
@@ -10,7 +10,7 @@ from app.crud import (
     get_asset, get_employee,
 )
 from app.dependencies import get_current_user, get_current_admin
-from app.models import User, UserRole, AssetStatus, LogAction
+from app.models import User, UserRole, AssetStatus, LogAction,AssetLog,Employee
 
 router = APIRouter(prefix="/asset-logs", tags=["资产流转记录"])
 
@@ -41,10 +41,10 @@ def create_asset_log_api(
         if asset.status != AssetStatus.IN_USE:
             raise HTTPException(status_code=400, detail="资产当前不在使用中")
         # Verify the employee is the one who checked out
-        last_log = db.query(get_asset_log.__globals__['AssetLog']).filter(
-            get_asset_log.__globals__['AssetLog'].asset_id == log_in.asset_id,
-            get_asset_log.__globals__['AssetLog'].action == LogAction.CHECKOUT
-        ).order_by(get_asset_log.__globals__['AssetLog'].created_at.desc()).first()
+        last_log = db.query(AssetLog).filter(
+            AssetLog.asset_id == log_in.asset_id,
+            AssetLog.action == LogAction.CHECKOUT
+        ).order_by(AssetLog.created_at.desc()).first()
         if last_log and last_log.employee_id != log_in.employee_id:
             raise HTTPException(status_code=400, detail="归还人与领用人不一致")
     elif log_in.action == LogAction.MAINTENANCE_IN:
@@ -72,8 +72,8 @@ def list_asset_logs(
 ):
     # 普通员工只能看自己的记录
     if current_user.role != UserRole.ADMIN:
-        employee = db.query(get_employee.__globals__['Employee']).filter(
-            get_employee.__globals__['Employee'].user_id == current_user.id
+        employee = db.query(get_employee.Employee).filter(
+            Employee.user_id == current_user.id
         ).first()
         if employee:
             employee_id = employee.id
@@ -122,8 +122,8 @@ def get_employee_assets(
 ):
     # 普通员工只能看自己的
     if current_user.role != UserRole.ADMIN:
-        employee = db.query(get_employee.__globals__['Employee']).filter(
-            get_employee.__globals__['Employee'].user_id == current_user.id
+        employee = db.query(Employee).filter(
+            Employee.user_id == current_user.id
         ).first()
         if not employee or employee.id != employee_id:
             raise HTTPException(status_code=403, detail="权限不足")
@@ -167,17 +167,17 @@ def export_asset_logs(
     import io
     import openpyxl
     
-    query = db.query(get_asset_log.__globals__['AssetLog']).options(
-        get_asset_log.__globals__['joinedload'](get_asset_log.__globals__['AssetLog'].asset),
-        get_asset_log.__globals__['joinedload'](get_asset_log.__globals__['AssetLog'].employee)
+    query = db.query(AssetLog).options(
+        joinedload(AssetLog.asset),
+        joinedload(AssetLog.employee)
     )
     
     if asset_id:
-        query = query.filter(get_asset_log.__globals__['AssetLog'].asset_id == asset_id)
+        query = query.filter(AssetLog.asset_id == asset_id)
     if employee_id:
-        query = query.filter(get_asset_log.__globals__['AssetLog'].employee_id == employee_id)
+        query = query.filter(AssetLog.employee_id == employee_id)
     
-    logs = query.order_by(get_asset_log.__globals__['AssetLog'].created_at.desc()).all()
+    logs = query.order_by(AssetLog.created_at.desc()).all()
     
     wb = openpyxl.Workbook()
     ws = wb.active

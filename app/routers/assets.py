@@ -12,7 +12,7 @@ from app.crud import (
 from app.dependencies import get_current_user, get_current_admin
 from app.models import User, UserRole, AssetStatus
 from app.utils.operation_log import log_operation
-
+from app.models import Asset
 router = APIRouter(prefix="/assets", tags=["资产管理"])
 
 
@@ -90,16 +90,16 @@ def update_asset_info(
     current_user: User = Depends(get_current_admin),
 ):
     if asset_in.asset_no and get_asset_by_no(db, asset_in.asset_no):
-        existing = db.query(get_asset.__globals__['Asset']).filter(
-            get_asset.__globals__['Asset'].asset_no == asset_in.asset_no,
-            get_asset.__globals__['Asset'].id != asset_id
+        existing = db.query(Asset).filter(
+            Asset.asset_no == asset_in.asset_no,
+            Asset.id != asset_id
         ).first()
         if existing:
             raise HTTPException(status_code=400, detail="资产编号已存在")
     if asset_in.serial_number and get_asset_by_serial(db, asset_in.serial_number):
-        existing = db.query(get_asset.__globals__['Asset']).filter(
-            get_asset.__globals__['Asset'].serial_number == asset_in.serial_number,
-            get_asset.__globals__['Asset'].id != asset_id
+        existing = db.query(Asset).filter(
+            Asset.serial_number == asset_in.serial_number,
+            Asset.id != asset_id
         ).first()
         if existing:
             raise HTTPException(status_code=400, detail="序列号已存在")
@@ -157,8 +157,8 @@ def export_assets(
     from fastapi.responses import StreamingResponse
     import io
     import openpyxl
-    
-    assets = db.query(get_asset.__globals__['Asset']).all()
+    from app.models import Asset
+    assets = db.query(Asset).all()
     
     wb = openpyxl.Workbook()
     ws = wb.active

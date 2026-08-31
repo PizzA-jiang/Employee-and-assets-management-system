@@ -12,7 +12,6 @@ from app.crud import (
 from app.dependencies import get_current_user, get_current_admin
 from app.models import User, UserRole, Employee
 from app.utils.operation_log import log_operation
-
 router = APIRouter(prefix="/employees", tags=["员工管理"])
 
 
@@ -66,8 +65,8 @@ def get_my_employee_info(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    employee = db.query(current_user.employee.__class__).filter(
-        current_user.employee.__class__.user_id == current_user.id
+    employee = db.query(Employee).filter(
+        Employee.user_id == current_user.id
     ).first() if current_user.employee else None
     
     if not employee:
@@ -98,9 +97,9 @@ def update_employee_info(
     current_user: User = Depends(get_current_admin),
 ):
     if employee_in.employee_no and get_employee_by_no(db, employee_in.employee_no):
-        existing = db.query(current_user.employee.__class__).filter(
-            current_user.employee.__class__.employee_no == employee_in.employee_no,
-            current_user.employee.__class__.id != employee_id
+        existing = db.query(Employee).filter(
+            Employee.employee_no == employee_in.employee_no,
+            Employee.id != employee_id
         ).first()
         if existing:
             raise HTTPException(status_code=400, detail="工号已存在")

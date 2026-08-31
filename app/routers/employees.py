@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.exc import IntegrityError
 from app.database import get_db
 from app.schemas import (
     EmployeeCreate, EmployeeUpdate, EmployeeResponse,
@@ -35,6 +36,13 @@ def create_employee_api(
         target_id=employee.id,
         target_name=employee.name,
     )
+    
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="工号已存在")
+    db.refresh(employee)
     
     return employee
 
@@ -117,6 +125,13 @@ def update_employee_info(
         target_name=employee.name,
     )
     
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="工号已存在")
+    db.refresh(employee)
+    
     return employee
 
 
@@ -143,6 +158,7 @@ def delete_employee_by_id(
         target_name=employee_name,
     )
     
+    db.commit()
     return {"message": "删除成功"}
 
 

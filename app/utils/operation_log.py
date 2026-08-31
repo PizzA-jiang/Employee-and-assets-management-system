@@ -12,7 +12,7 @@ def log_operation(
     detail: str = None,
     ip_address: str = None,
 ):
-    """记录操作日志"""
+    """记录操作日志 - 不自动 commit，由调用方统一管理事务"""
     log = OperationLog(
         user_id=user_id,
         action=action,
@@ -23,4 +23,3 @@ def log_operation(
         ip_address=ip_address,
     )
     db.add(log)
-    db.commit()

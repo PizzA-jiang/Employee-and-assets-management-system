@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, List, Tuple
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func, or_, desc
+from sqlalchemy import func, or_, desc, text
 from app.models import User, Employee, Asset, AssetLog, UserRole, AssetStatus, LogAction
 from app.schemas import (
     UserCreate, UserUpdate,
@@ -39,7 +39,7 @@ def create_user(db: Session, user_in: UserCreate) -> User:
         role=user_in.role,
     )
     db.add(user)
-    db.commit()
+    db.flush()
     db.refresh(user)
     return user
 
@@ -51,7 +51,7 @@ def update_user(db: Session, user_id: int, user_in: UserUpdate) -> Optional[User
     update_data = user_in.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(user, field, value)
-    db.commit()
+    db.flush()
     db.refresh(user)
     return user
 
@@ -61,7 +61,7 @@ def delete_user(db: Session, user_id: int) -> bool:
     if not user:
         return False
     db.delete(user)
-    db.commit()
+    db.flush()
     return True
 
 
@@ -123,7 +123,7 @@ def get_employees(
 def create_employee(db: Session, employee_in: EmployeeCreate) -> Employee:
     employee = Employee(**employee_in.model_dump())
     db.add(employee)
-    db.commit()
+    db.flush()
     db.refresh(employee)
     return employee
 
@@ -135,7 +135,7 @@ def update_employee(db: Session, employee_id: int, employee_in: EmployeeUpdate) 
     update_data = employee_in.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(employee, field, value)
-    db.commit()
+    db.flush()
     db.refresh(employee)
     return employee
 
@@ -146,7 +146,7 @@ def delete_employee(db: Session, employee_id: int) -> bool:
         return False
     db.query(AssetLog).filter(AssetLog.employee_id == employee_id).delete()
     db.delete(employee)
-    db.commit()
+    db.flush()
     return True
 
 
@@ -200,7 +200,7 @@ def get_assets(
 def create_asset(db: Session, asset_in: AssetCreate) -> Asset:
     asset = Asset(**asset_in.model_dump())
     db.add(asset)
-    db.commit()
+    db.flush()
     db.refresh(asset)
     return asset
 
@@ -212,7 +212,7 @@ def update_asset(db: Session, asset_id: int, asset_in: AssetUpdate) -> Optional[
     update_data = asset_in.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(asset, field, value)
-    db.commit()
+    db.flush()
     db.refresh(asset)
     return asset
 
@@ -225,7 +225,7 @@ def delete_asset(db: Session, asset_id: int) -> bool:
         return False
     db.query(AssetLog).filter(AssetLog.asset_id == asset_id).delete()
     db.delete(asset)
-    db.commit()
+    db.flush()
     return True
 
 
@@ -265,9 +265,11 @@ def create_asset_log(db: Session, log_in: AssetLogCreate, operator_id: int) -> A
     log = AssetLog(**log_in.model_dump(), operator_id=operator_id)
     db.add(log)
     
-    # Update asset status based on action
-    asset = get_asset(db, log_in.asset_id)
+    # Use select_for_update to lock the asset row and prevent concurrent modification
+    asset = db.query(Asset).filter(Asset.id == log_in.asset_id).with_for_update().first()
     if asset:
+        # Check optimistic lock version to detect concurrent changes
+        current_version = asset.version
         if log_in.action == LogAction.CHECKOUT:
             asset.status = AssetStatus.IN_USE
         elif log_in.action == LogAction.RETURN:
@@ -278,8 +280,10 @@ def create_asset_log(db: Session, log_in: AssetLogCreate, operator_id: int) -> A
             asset.status = AssetStatus.AVAILABLE
         elif log_in.action == LogAction.SCRAP:
             asset.status = AssetStatus.SCRAPPED
+        # Increment version for optimistic locking
+        asset.version = current_version + 1
     
-    db.commit()
+    db.flush()
     db.refresh(log)
     return log
 

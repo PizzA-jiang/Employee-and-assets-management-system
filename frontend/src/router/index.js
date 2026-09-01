@@ -11,8 +11,14 @@ const routes = [
   {
     path: '/',
     component: () => import('../layout/MainLayout.vue'),
-    redirect: '/assets',
+    redirect: '/dashboard',
     children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/DashboardView.vue'),
+        meta: { title: '数据看板' },
+      },
       {
         path: 'employees',
         name: 'Employees',
@@ -79,7 +85,7 @@ router.beforeEach((to) => {
     return '/'
   }
   if (to.meta.requireAdmin && !store.isAdmin) {
-    return '/assets'
+    return '/dashboard'
   }
   document.title = to.meta.title ? `${to.meta.title} - 企业资产管理系统` : '企业资产管理系统'
   return true

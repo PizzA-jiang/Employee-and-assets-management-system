@@ -1,1 +1,0 @@
-import{n as e}from"./request-Cso9lB8e.js";function t(t){return e.get(`/employees`,{params:t})}function n(t){return e.post(`/employees`,t)}function r(t,n){return e.put(`/employees/${t}`,n)}function i(t){return e.delete(`/employees/${t}`)}export{r as i,i as n,t as r,n as t};

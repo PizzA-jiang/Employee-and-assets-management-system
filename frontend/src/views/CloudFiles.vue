@@ -208,8 +208,17 @@ function handleUploadSuccess() {
   load()
 }
 
-function handleUploadError() {
-  ElMessage.error('上传失败')
+function handleUploadError(err) {
+  let msg = '上传失败'
+  if (err?.response) {
+    try {
+      const data = typeof err.response === 'string' ? JSON.parse(err.response) : err.response
+      msg = data.message || data.detail || msg
+    } catch {
+      // ignore parse error
+    }
+  }
+  ElMessage.error(msg)
 }
 
 function handleDownload(row) {

@@ -43,6 +43,24 @@ const routes = [
         component: () => import('../views/CloudFiles.vue'),
         meta: { title: '云盘' },
       },
+      {
+        path: 'knowledge',
+        name: 'KnowledgeBase',
+        component: () => import('../views/KnowledgeBase.vue'),
+        meta: { title: '知识库', requireAdmin: true },
+      },
+      {
+        path: 'ai-config',
+        name: 'AIConfig',
+        component: () => import('../views/AIConfig.vue'),
+        meta: { title: 'AI配置', requireAdmin: true },
+      },
+      {
+        path: 'chat',
+        name: 'Chat',
+        component: () => import('../views/ChatView.vue'),
+        meta: { title: 'AI问答' },
+      },
     ],
   },
 ]

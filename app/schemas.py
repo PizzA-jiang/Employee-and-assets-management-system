@@ -215,6 +215,210 @@ class FileShareCreate(BaseModel):
     user_ids: List[int]
 
 
+# Knowledge Document schemas
+from app.models import DocStatus, FileType, EmbeddingStatus
+
+
+class KnowledgeDocumentResponse(BaseModel):
+    id: int
+    title: str
+    filename: str
+    file_size: int
+    mime_type: Optional[str] = None
+    file_type: FileType
+    status: DocStatus
+    chunk_count: int
+    error_message: Optional[str] = None
+    created_by: int
+    creator_name: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class KnowledgeDocumentPageResponse(PageResponse):
+    items: List[KnowledgeDocumentResponse]
+
+
+class KnowledgeDocumentUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=255)
+
+
+class KnowledgeChunkResponse(BaseModel):
+    id: int
+    document_id: int
+    chunk_index: int
+    content: str
+    token_count: int
+    metadata_json: Optional[str] = None
+    embedding_status: EmbeddingStatus
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class KnowledgeChunkPageResponse(PageResponse):
+    items: List[KnowledgeChunkResponse]
+
+
+class KnowledgeSearchRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=500)
+    top_k: int = Field(5, ge=1, le=20)
+
+
+class KnowledgeSearchResult(BaseModel):
+    chunk_id: int
+    document_id: int
+    document_title: str
+    content: str
+    score: float
+
+
+class KnowledgeSearchResponse(BaseModel):
+    query: str
+    results: List[KnowledgeSearchResult]
+
+
+# AI Config schemas
+class AIConfigItem(BaseModel):
+    config_key: str
+    config_value: str
+    config_type: str = "string"
+    description: Optional[str] = None
+
+
+class AIConfigUpdate(BaseModel):
+    config_key: str
+    config_value: str
+
+
+class AIConfigBatchUpdate(BaseModel):
+    configs: List[AIConfigUpdate]
+
+
+class AIConfigResponse(BaseModel):
+    config_key: str
+    config_value: str
+    config_type: str
+    description: Optional[str] = None
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AIConfigTestRequest(BaseModel):
+    config_key: str
+    config_value: str
+
+
+class AIConfigTestResponse(BaseModel):
+    success: bool
+    message: str
+    model_used: Optional[str] = None
+
+
+# MCP Server schemas
+class MCPServerCreate(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    host: str = Field("localhost", max_length=255)
+    port: int = Field(3306, ge=1, le=65535)
+    username: Optional[str] = Field(None, max_length=100)
+    password: Optional[str] = Field(None, max_length=500)
+    database: Optional[str] = Field(None, max_length=100)
+    charset: str = Field("utf8mb4", max_length=20)
+    is_enabled: int = Field(1, ge=0, le=1)
+    sort_order: int = Field(0, ge=0)
+
+
+class MCPServerUpdate(BaseModel):
+    name: Optional[str] = Field(None, min_length=1, max_length=100)
+    host: Optional[str] = Field(None, max_length=255)
+    port: Optional[int] = Field(None, ge=1, le=65535)
+    username: Optional[str] = Field(None, max_length=100)
+    password: Optional[str] = Field(None, max_length=500)
+    database: Optional[str] = Field(None, max_length=100)
+    charset: Optional[str] = Field(None, max_length=20)
+    is_enabled: Optional[int] = Field(None, ge=0, le=1)
+    sort_order: Optional[int] = Field(None, ge=0)
+
+
+class MCPServerResponse(BaseModel):
+    id: int
+    name: str
+    host: str
+    port: int
+    username: Optional[str] = None
+    password_masked: str = ""
+    database: Optional[str] = None
+    charset: str = "utf8mb4"
+    is_enabled: int = 1
+    sort_order: int = 0
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class MCPServerTestRequest(BaseModel):
+    host: str
+    port: int
+    username: Optional[str] = None
+    password: Optional[str] = None
+    database: Optional[str] = None
+
+
+# Chat schemas
+class ChatRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=2000)
+    top_k: int = Field(5, ge=1, le=20)
+
+
+class ChatSource(BaseModel):
+    document_title: str
+    content: str
+    score: float
+
+
+class ChatResponse(BaseModel):
+    answer: str
+    sources: List[ChatSource] = []
+    model_used: str = ""
+
+
+# Chat History schemas
+class ChatConversationCreate(BaseModel):
+    title: str = Field("新对话", max_length=255)
+
+
+class ChatConversationResponse(BaseModel):
+    id: int
+    title: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ChatMessageResponse(BaseModel):
+    id: int
+    role: str
+    content: str
+    sources: List[ChatSource] = []
+    model_used: Optional[str] = None
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ChatConversationDetailResponse(BaseModel):
+    id: int
+    title: str
+    messages: List[ChatMessageResponse] = []
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+
 # Forward references
 UserWithEmployee.model_rebuild()
 EmployeeWithUser.model_rebuild()

@@ -60,6 +60,7 @@ class User(Base):
 
     employee = relationship("Employee", back_populates="user", uselist=False)
     cloud_files = relationship("CloudFile", back_populates="owner")
+    knowledge_documents = relationship("KnowledgeDocument", back_populates="owner")
 
 
 class Employee(Base):
@@ -137,6 +138,129 @@ class OperationLog(Base):
     created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
 
     user = relationship("User")
+
+
+class DocStatus(str, enum.Enum):
+    PROCESSING = "processing"
+    SUCCESS = "success"
+    FAILED = "failed"
+
+
+class FileType(str, enum.Enum):
+    PDF = "pdf"
+    DOCX = "docx"
+    XLSX = "xlsx"
+    TXT = "txt"
+    MD = "md"
+
+
+class EmbeddingStatus(str, enum.Enum):
+    PENDING = "pending"
+    DONE = "done"
+    FAILED = "failed"
+
+
+class KnowledgeDocument(Base):
+    __tablename__ = "knowledge_documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False, comment="文档标题")
+    filename = Column(String(255), nullable=False, comment="原始文件名")
+    stored_name = Column(String(255), nullable=False, comment="存储文件名")
+    file_path = Column(String(500), nullable=False, comment="文件路径")
+    file_size = Column(Integer, nullable=False, comment="文件大小(字节)")
+    mime_type = Column(String(100), nullable=True, comment="MIME类型")
+    file_type = Column(Enum(FileType), nullable=False, comment="文件类型")
+    status = Column(Enum(DocStatus), default=DocStatus.PROCESSING, nullable=False, comment="处理状态")
+    chunk_count = Column(Integer, default=0, comment="分块数量")
+    error_message = Column(Text, nullable=True, comment="错误信息")
+    created_by = Column(Integer, ForeignKey("users.id"), nullable=False, comment="上传者ID")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    owner = relationship("User")
+    chunks = relationship("KnowledgeChunk", back_populates="document", cascade="all, delete-orphan")
+
+
+class KnowledgeChunk(Base):
+    __tablename__ = "knowledge_chunks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    document_id = Column(Integer, ForeignKey("knowledge_documents.id", ondelete="CASCADE"), nullable=False, comment="文档ID")
+    chunk_index = Column(Integer, nullable=False, comment="分块序号")
+    content = Column(Text, nullable=False, comment="分块内容")
+    token_count = Column(Integer, default=0, comment="token数量")
+    metadata_json = Column(Text, nullable=True, comment="元数据JSON")
+    embedding_status = Column(Enum(EmbeddingStatus), default=EmbeddingStatus.PENDING, comment="向量化状态")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    document = relationship("KnowledgeDocument", back_populates="chunks")
+
+    __table_args__ = (
+        Index("idx_chunk_document", "document_id", "chunk_index"),
+    )
+
+
+class AIConfig(Base):
+    __tablename__ = "ai_configs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    config_key = Column(String(50), unique=True, index=True, nullable=False, comment="配置键名")
+    config_value = Column(Text, nullable=False, comment="加密后的配置值")
+    config_type = Column(String(20), default="string", comment="值类型: string/boolean/integer")
+    description = Column(String(255), nullable=True, comment="配置描述")
+    updated_by = Column(Integer, ForeignKey("users.id"), nullable=True, comment="更新者ID")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    updater = relationship("User")
+
+
+class MCPServer(Base):
+    __tablename__ = "mcp_servers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False, comment="MCP服务名称")
+    host = Column(String(255), nullable=False, default="localhost", comment="服务器地址")
+    port = Column(Integer, nullable=False, default=3306, comment="端口")
+    username = Column(String(100), nullable=True, comment="数据库用户名")
+    password = Column(String(500), nullable=True, comment="数据库密码")
+    database = Column(String(100), nullable=True, comment="数据库名")
+    charset = Column(String(20), default="utf8mb4", comment="字符集")
+    is_enabled = Column(Integer, default=1, nullable=False, comment="是否启用 1=启用 0=禁用")
+    sort_order = Column(Integer, default=0, comment="排序")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+
+class ChatConversation(Base):
+    __tablename__ = "chat_conversations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="用户ID")
+    title = Column(String(255), default="新对话", comment="对话标题")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    user = relationship("User")
+    messages = relationship("ChatMessage", back_populates="conversation", cascade="all, delete-orphan")
+
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    conversation_id = Column(Integer, ForeignKey("chat_conversations.id", ondelete="CASCADE"), nullable=False, comment="对话ID")
+    role = Column(String(20), nullable=False, comment="角色: user/assistant")
+    content = Column(Text, nullable=False, comment="消息内容")
+    sources_json = Column(Text, nullable=True, comment="引用来源JSON")
+    model_used = Column(String(100), nullable=True, comment="使用的模型")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    conversation = relationship("ChatConversation", back_populates="messages")
+
+    __table_args__ = (
+        Index("idx_chat_msg_conv", "conversation_id", "created_at"),
+    )
 
 
 class CloudFile(Base):

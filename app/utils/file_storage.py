@@ -50,3 +50,27 @@ def delete_share_dir(share_id: int) -> bool:
         shutil.rmtree(share_dir)
         return True
     return False
+
+
+KNOWLEDGE_DIR = FILE_BASE_DIR / "knowledge"
+
+
+def get_knowledge_dir() -> Path:
+    d = KNOWLEDGE_DIR
+    ensure_dir(d)
+    return d
+
+
+def save_knowledge_file(stored_name: str, content: bytes) -> str:
+    upload_dir = get_knowledge_dir()
+    file_path = upload_dir / stored_name
+    with open(file_path, "wb") as f:
+        f.write(content)
+    return str(file_path)
+
+
+def delete_knowledge_file(file_path: str) -> bool:
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return True
+    return False

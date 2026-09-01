@@ -1,17 +1,15 @@
 import os
 import uuid
-from datetime import datetime
 from pathlib import Path
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query, Body
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import desc, or_
-from pydantic import BaseModel, ConfigDict
 
 from app.database import get_db
 from app.models import User, UserRole, CloudFile, FileShare
-from app.schemas import FileShareCreate
+from app.schemas import FileShareCreate, CloudFileResponse, CloudFilePageResponse
 from app.dependencies import get_current_user, get_current_admin
 from app.utils.operation_log import log_operation
 from app.utils.file_storage import (
@@ -20,36 +18,13 @@ from app.utils.file_storage import (
     delete_file,
     delete_share_dir,
 )
+from app.utils.response import R
 
 router = APIRouter(prefix="/cloud-files", tags=["云盘"])
 
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".pdf",
                       ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".zip", ".rar"}
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
-
-
-class CloudFileResponse(BaseModel):
-    id: int
-    filename: str
-    file_size: int
-    mime_type: Optional[str] = None
-    is_public: int = 0
-    user_id: int
-    owner_name: Optional[str] = None
-    is_shared: bool = False
-    shared_by: Optional[str] = None
-    shared_to_names: Optional[List[str]] = None
-    created_at: Optional[datetime] = None
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-class CloudFilePageResponse(BaseModel):
-    total: int
-    page: int
-    size: int
-    pages: int
-    items: List[CloudFileResponse]
 
 
 @router.post("/upload", response_model=CloudFileResponse)
@@ -92,15 +67,18 @@ async def upload_file(
 
     db.commit()
 
-    return CloudFileResponse(
-        id=cloud_file.id,
-        filename=cloud_file.filename,
-        file_size=cloud_file.file_size,
-        mime_type=cloud_file.mime_type,
-        is_public=cloud_file.is_public,
-        user_id=cloud_file.user_id,
-        owner_name=current_user.username,
-        created_at=cloud_file.created_at,
+    return R.ok(
+        data=CloudFileResponse(
+            id=cloud_file.id,
+            filename=cloud_file.filename,
+            file_size=cloud_file.file_size,
+            mime_type=cloud_file.mime_type,
+            is_public=cloud_file.is_public,
+            user_id=cloud_file.user_id,
+            owner_name=current_user.username,
+            created_at=cloud_file.created_at,
+        ),
+        message="上传成功",
     )
 
 

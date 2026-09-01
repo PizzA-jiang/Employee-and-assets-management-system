@@ -33,3 +33,10 @@ Thumbs.db
 # file
 file/
 
+# AI/Vector
+models/
+chroma_data/
+
+# Sensitive config
+.env
+*.enc

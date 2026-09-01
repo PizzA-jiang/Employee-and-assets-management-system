@@ -1,0 +1,1 @@
+import{n as e}from"./request-PLaJNU7j.js";function t(t){return e.get(`/asset-logs`,{params:t})}function n(t){return e.post(`/asset-logs`,t)}export{t as n,n as t};

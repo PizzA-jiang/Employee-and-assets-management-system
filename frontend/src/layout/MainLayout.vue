@@ -13,6 +13,10 @@
         active-text-color="#ffffff"
         class="menu"
       >
+        <el-menu-item index="/dashboard">
+          <el-icon><DataAnalysis /></el-icon>
+          <span>数据看板</span>
+        </el-menu-item>
         <el-menu-item v-if="userStore.isAdmin" index="/employees">
           <el-icon><User /></el-icon>
           <span>员工管理</span>

@@ -150,11 +150,18 @@ npm run dev
 基于 RAG（检索增强生成）的智能问答系统：
 
 - **自然语言查询**：用中文提问，AI 自动查询数据库回答
+
 - **知识库检索**：自动检索相关文档作为参考
+
 - **工具调用**：AI 可调用内置函数查询员工、资产、流转记录
+
 - **MCP 服务器**：可配置外部数据库，AI 直接查询
+
 - **流式输出**：实时显示 AI 回答（逐字输出）
+
 - **对话历史**：自动保存最近 3 轮对话，刷新页面不丢失
+
+  ![image-20260901131219548](C:/Users/jiang/AppData/Roaming/Typora/typora-user-images/image-20260901131219548.png)
 
 示例问题：
 ```
@@ -169,7 +176,7 @@ npm run dev
 | 配置项 | 说明 |
 |--------|------|
 | API Key | LLM 服务密钥 |
-| API 地址 | OpenAI 兼容格式地址，默认 `https://llm.goaichat.top/v1` |
+| API 地址 | OpenAI 兼容格式地址，默认使用的是聚合API `https://llm.goaichat.top/v1` |
 | 模型 | 支持 GLM、DeepSeek、Kimi、Qwen、MiniMax 等 |
 | 本地模型 | 可配置本地部署的 LLM 端点 |
 | MCP 服务器 | 配置外部数据库连接，AI 可直接查询 |
@@ -412,6 +419,3 @@ mysqldump -u root -p asset_management > backup.sql
 
 ---
 
-## 许可证
-
-内部项目，仅供参考学习。

@@ -1,17 +1,15 @@
 import os
 import uuid
-from datetime import datetime
 from pathlib import Path
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query, Body
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import desc, or_
-from pydantic import BaseModel, ConfigDict
 
 from app.database import get_db
 from app.models import User, UserRole, CloudFile, FileShare
-from app.schemas import FileShareCreate
+from app.schemas import FileShareCreate, CloudFileResponse, CloudFilePageResponse
 from app.dependencies import get_current_user, get_current_admin
 from app.utils.operation_log import log_operation
 from app.utils.file_storage import (
@@ -27,30 +25,6 @@ router = APIRouter(prefix="/cloud-files", tags=["云盘"])
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".pdf",
                       ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt", ".zip", ".rar"}
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
-
-
-class CloudFileResponse(BaseModel):
-    id: int
-    filename: str
-    file_size: int
-    mime_type: Optional[str] = None
-    is_public: int = 0
-    user_id: int
-    owner_name: Optional[str] = None
-    is_shared: bool = False
-    shared_by: Optional[str] = None
-    shared_to_names: Optional[List[str]] = None
-    created_at: Optional[datetime] = None
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-class CloudFilePageResponse(BaseModel):
-    total: int
-    page: int
-    size: int
-    pages: int
-    items: List[CloudFileResponse]
 
 
 @router.post("/upload", response_model=CloudFileResponse)

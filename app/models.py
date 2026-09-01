@@ -201,6 +201,68 @@ class KnowledgeChunk(Base):
     )
 
 
+class AIConfig(Base):
+    __tablename__ = "ai_configs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    config_key = Column(String(50), unique=True, index=True, nullable=False, comment="配置键名")
+    config_value = Column(Text, nullable=False, comment="加密后的配置值")
+    config_type = Column(String(20), default="string", comment="值类型: string/boolean/integer")
+    description = Column(String(255), nullable=True, comment="配置描述")
+    updated_by = Column(Integer, ForeignKey("users.id"), nullable=True, comment="更新者ID")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    updater = relationship("User")
+
+
+class MCPServer(Base):
+    __tablename__ = "mcp_servers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), nullable=False, comment="MCP服务名称")
+    host = Column(String(255), nullable=False, default="localhost", comment="服务器地址")
+    port = Column(Integer, nullable=False, default=3306, comment="端口")
+    username = Column(String(100), nullable=True, comment="数据库用户名")
+    password = Column(String(500), nullable=True, comment="数据库密码")
+    database = Column(String(100), nullable=True, comment="数据库名")
+    charset = Column(String(20), default="utf8mb4", comment="字符集")
+    is_enabled = Column(Integer, default=1, nullable=False, comment="是否启用 1=启用 0=禁用")
+    sort_order = Column(Integer, default=0, comment="排序")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+
+class ChatConversation(Base):
+    __tablename__ = "chat_conversations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, comment="用户ID")
+    title = Column(String(255), default="新对话", comment="对话标题")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    user = relationship("User")
+    messages = relationship("ChatMessage", back_populates="conversation", cascade="all, delete-orphan")
+
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    conversation_id = Column(Integer, ForeignKey("chat_conversations.id", ondelete="CASCADE"), nullable=False, comment="对话ID")
+    role = Column(String(20), nullable=False, comment="角色: user/assistant")
+    content = Column(Text, nullable=False, comment="消息内容")
+    sources_json = Column(Text, nullable=True, comment="引用来源JSON")
+    model_used = Column(String(100), nullable=True, comment="使用的模型")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    conversation = relationship("ChatConversation", back_populates="messages")
+
+    __table_args__ = (
+        Index("idx_chat_msg_conv", "conversation_id", "created_at"),
+    )
+
+
 class CloudFile(Base):
     __tablename__ = "cloud_files"
 

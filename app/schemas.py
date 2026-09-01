@@ -215,6 +215,71 @@ class FileShareCreate(BaseModel):
     user_ids: List[int]
 
 
+# Knowledge Document schemas
+from app.models import DocStatus, FileType, EmbeddingStatus
+
+
+class KnowledgeDocumentResponse(BaseModel):
+    id: int
+    title: str
+    filename: str
+    file_size: int
+    mime_type: Optional[str] = None
+    file_type: FileType
+    status: DocStatus
+    chunk_count: int
+    error_message: Optional[str] = None
+    created_by: int
+    creator_name: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class KnowledgeDocumentPageResponse(PageResponse):
+    items: List[KnowledgeDocumentResponse]
+
+
+class KnowledgeDocumentUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=255)
+
+
+class KnowledgeChunkResponse(BaseModel):
+    id: int
+    document_id: int
+    chunk_index: int
+    content: str
+    token_count: int
+    metadata_json: Optional[str] = None
+    embedding_status: EmbeddingStatus
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class KnowledgeChunkPageResponse(PageResponse):
+    items: List[KnowledgeChunkResponse]
+
+
+class KnowledgeSearchRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=500)
+    top_k: int = Field(5, ge=1, le=20)
+
+
+class KnowledgeSearchResult(BaseModel):
+    chunk_id: int
+    document_id: int
+    document_title: str
+    content: str
+    score: float
+
+
+class KnowledgeSearchResponse(BaseModel):
+    query: str
+    results: List[KnowledgeSearchResult]
+
+
 # Forward references
 UserWithEmployee.model_rebuild()
 EmployeeWithUser.model_rebuild()

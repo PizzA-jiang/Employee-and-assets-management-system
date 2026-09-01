@@ -3,6 +3,7 @@ from typing import Optional, List, Tuple
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func, or_, desc, text
 from app.models import User, Employee, Asset, AssetLog, UserRole, AssetStatus, LogAction
+from app.models import KnowledgeDocument, KnowledgeChunk, DocStatus, EmbeddingStatus
 from app.schemas import (
     UserCreate, UserUpdate,
     EmployeeCreate, EmployeeUpdate,
@@ -311,3 +312,138 @@ def get_dashboard_stats(db: Session) -> dict:
         "assets_scrapped": assets_scrapped,
         "recent_logs": recent_logs,
     }
+
+
+# Knowledge Document CRUD
+def get_knowledge_document(db: Session, doc_id: int) -> Optional[KnowledgeDocument]:
+    return db.query(KnowledgeDocument).filter(KnowledgeDocument.id == doc_id).first()
+
+
+def get_knowledge_documents(
+    db: Session,
+    page: int = 1,
+    size: int = 20,
+    keyword: Optional[str] = None,
+) -> Tuple[List[KnowledgeDocument], int]:
+    query = db.query(KnowledgeDocument)
+
+    if keyword:
+        query = query.filter(
+            or_(
+                KnowledgeDocument.title.contains(keyword),
+                KnowledgeDocument.filename.contains(keyword),
+            )
+        )
+
+    total = query.count()
+    items = query.order_by(desc(KnowledgeDocument.created_at)).offset((page - 1) * size).limit(size).all()
+    return items, total
+
+
+def create_knowledge_document(
+    db: Session,
+    title: str,
+    filename: str,
+    stored_name: str,
+    file_path: str,
+    file_size: int,
+    mime_type: Optional[str],
+    file_type: "FileType",
+    created_by: int,
+) -> KnowledgeDocument:
+    doc = KnowledgeDocument(
+        title=title,
+        filename=filename,
+        stored_name=stored_name,
+        file_path=file_path,
+        file_size=file_size,
+        mime_type=mime_type,
+        file_type=file_type,
+        status=DocStatus.PROCESSING,
+        created_by=created_by,
+    )
+    db.add(doc)
+    db.flush()
+    db.refresh(doc)
+    return doc
+
+
+def update_knowledge_document_status(
+    db: Session,
+    doc_id: int,
+    status: DocStatus,
+    chunk_count: int = 0,
+    error_message: Optional[str] = None,
+) -> Optional[KnowledgeDocument]:
+    doc = get_knowledge_document(db, doc_id)
+    if not doc:
+        return None
+    doc.status = status
+    doc.chunk_count = chunk_count
+    doc.error_message = error_message
+    db.flush()
+    db.refresh(doc)
+    return doc
+
+
+def update_knowledge_document_title(
+    db: Session,
+    doc_id: int,
+    title: str,
+) -> Optional[KnowledgeDocument]:
+    doc = get_knowledge_document(db, doc_id)
+    if not doc:
+        return None
+    doc.title = title
+    db.flush()
+    db.refresh(doc)
+    return doc
+
+
+def delete_knowledge_document(db: Session, doc_id: int) -> bool:
+    doc = get_knowledge_document(db, doc_id)
+    if not doc:
+        return False
+    db.query(KnowledgeChunk).filter(KnowledgeChunk.document_id == doc_id).delete()
+    db.delete(doc)
+    db.flush()
+    return True
+
+
+def create_knowledge_chunks(
+    db: Session,
+    document_id: int,
+    chunks: list,
+) -> List[KnowledgeChunk]:
+    db_chunks = []
+    for i, chunk in enumerate(chunks):
+        db_chunk = KnowledgeChunk(
+            document_id=document_id,
+            chunk_index=i,
+            content=chunk.content,
+            token_count=chunk.token_count,
+            metadata_json=str(chunk.metadata) if chunk.metadata else None,
+            embedding_status=EmbeddingStatus.PENDING,
+        )
+        db.add(db_chunk)
+        db_chunks.append(db_chunk)
+    db.flush()
+    return db_chunks
+
+
+def get_knowledge_chunks(
+    db: Session,
+    document_id: int,
+    page: int = 1,
+    size: int = 20,
+) -> Tuple[List[KnowledgeChunk], int]:
+    query = db.query(KnowledgeChunk).filter(KnowledgeChunk.document_id == document_id)
+    total = query.count()
+    items = query.order_by(KnowledgeChunk.chunk_index).offset((page - 1) * size).limit(size).all()
+    return items, total
+
+
+def delete_knowledge_chunks_by_document(db: Session, document_id: int) -> bool:
+    db.query(KnowledgeChunk).filter(KnowledgeChunk.document_id == document_id).delete()
+    db.flush()
+    return True

@@ -60,6 +60,7 @@ class User(Base):
 
     employee = relationship("Employee", back_populates="user", uselist=False)
     cloud_files = relationship("CloudFile", back_populates="owner")
+    knowledge_documents = relationship("KnowledgeDocument", back_populates="owner")
 
 
 class Employee(Base):
@@ -137,6 +138,67 @@ class OperationLog(Base):
     created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
 
     user = relationship("User")
+
+
+class DocStatus(str, enum.Enum):
+    PROCESSING = "processing"
+    SUCCESS = "success"
+    FAILED = "failed"
+
+
+class FileType(str, enum.Enum):
+    PDF = "pdf"
+    DOCX = "docx"
+    XLSX = "xlsx"
+    TXT = "txt"
+    MD = "md"
+
+
+class EmbeddingStatus(str, enum.Enum):
+    PENDING = "pending"
+    DONE = "done"
+    FAILED = "failed"
+
+
+class KnowledgeDocument(Base):
+    __tablename__ = "knowledge_documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False, comment="文档标题")
+    filename = Column(String(255), nullable=False, comment="原始文件名")
+    stored_name = Column(String(255), nullable=False, comment="存储文件名")
+    file_path = Column(String(500), nullable=False, comment="文件路径")
+    file_size = Column(Integer, nullable=False, comment="文件大小(字节)")
+    mime_type = Column(String(100), nullable=True, comment="MIME类型")
+    file_type = Column(Enum(FileType), nullable=False, comment="文件类型")
+    status = Column(Enum(DocStatus), default=DocStatus.PROCESSING, nullable=False, comment="处理状态")
+    chunk_count = Column(Integer, default=0, comment="分块数量")
+    error_message = Column(Text, nullable=True, comment="错误信息")
+    created_by = Column(Integer, ForeignKey("users.id"), nullable=False, comment="上传者ID")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, comment="更新时间")
+
+    owner = relationship("User")
+    chunks = relationship("KnowledgeChunk", back_populates="document", cascade="all, delete-orphan")
+
+
+class KnowledgeChunk(Base):
+    __tablename__ = "knowledge_chunks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    document_id = Column(Integer, ForeignKey("knowledge_documents.id", ondelete="CASCADE"), nullable=False, comment="文档ID")
+    chunk_index = Column(Integer, nullable=False, comment="分块序号")
+    content = Column(Text, nullable=False, comment="分块内容")
+    token_count = Column(Integer, default=0, comment="token数量")
+    metadata_json = Column(Text, nullable=True, comment="元数据JSON")
+    embedding_status = Column(Enum(EmbeddingStatus), default=EmbeddingStatus.PENDING, comment="向量化状态")
+    created_at = Column(DateTime, default=datetime.utcnow, comment="创建时间")
+
+    document = relationship("KnowledgeDocument", back_populates="chunks")
+
+    __table_args__ = (
+        Index("idx_chunk_document", "document_id", "chunk_index"),
+    )
 
 
 class CloudFile(Base):

@@ -43,6 +43,12 @@ const routes = [
         component: () => import('../views/CloudFiles.vue'),
         meta: { title: '云盘' },
       },
+      {
+        path: 'knowledge',
+        name: 'KnowledgeBase',
+        component: () => import('../views/KnowledgeBase.vue'),
+        meta: { title: '知识库', requireAdmin: true },
+      },
     ],
   },
 ]

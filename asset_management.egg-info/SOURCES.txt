@@ -16,8 +16,14 @@ app/routers/auth.py
 app/routers/cloud_files.py
 app/routers/dashboard.py
 app/routers/employees.py
+app/routers/knowledge.py
 app/routers/operation_logs.py
+app/services/__init__.py
+app/services/file_parser.py
+app/services/text_chunker.py
+app/services/vector_store.py
 app/utils/__init__.py
+app/utils/file_storage.py
 app/utils/operation_log.py
 app/utils/response.py
 asset_management.egg-info/PKG-INFO
@@ -26,3 +32,4 @@ asset_management.egg-info/dependency_links.txt
 asset_management.egg-info/requires.txt
 asset_management.egg-info/top_level.txt
 tests/test_all_apis.py
+tests/test_comprehensive.py

@@ -20,6 +20,7 @@ from app.utils.file_storage import (
     delete_file,
     delete_share_dir,
 )
+from app.utils.response import R
 
 router = APIRouter(prefix="/cloud-files", tags=["云盘"])
 
@@ -92,15 +93,18 @@ async def upload_file(
 
     db.commit()
 
-    return CloudFileResponse(
-        id=cloud_file.id,
-        filename=cloud_file.filename,
-        file_size=cloud_file.file_size,
-        mime_type=cloud_file.mime_type,
-        is_public=cloud_file.is_public,
-        user_id=cloud_file.user_id,
-        owner_name=current_user.username,
-        created_at=cloud_file.created_at,
+    return R.ok(
+        data=CloudFileResponse(
+            id=cloud_file.id,
+            filename=cloud_file.filename,
+            file_size=cloud_file.file_size,
+            mime_type=cloud_file.mime_type,
+            is_public=cloud_file.is_public,
+            user_id=cloud_file.user_id,
+            owner_name=current_user.username,
+            created_at=cloud_file.created_at,
+        ),
+        message="上传成功",
     )
 
 

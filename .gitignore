@@ -33,3 +33,6 @@ Thumbs.db
 # file
 file/
 
+# AI/Vector
+models/
+chroma_data/

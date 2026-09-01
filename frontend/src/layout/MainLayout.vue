@@ -33,6 +33,10 @@
           <el-icon><FolderOpened /></el-icon>
           <span>云盘</span>
         </el-menu-item>
+        <el-menu-item v-if="userStore.isAdmin" index="/knowledge">
+          <el-icon><Reading /></el-icon>
+          <span>知识库</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
 
